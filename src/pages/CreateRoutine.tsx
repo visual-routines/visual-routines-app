@@ -1,8 +1,23 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 import { MobileLayout } from "@/components/MobileLayout";
 import { ActivityCard } from "@/components/ActivityCard";
-import { RoutineActivityItem } from "@/components/RoutineActivityItem";
+import { SortableActivity } from "@/components/SortableActivity";
 import { ACTIVITY_TEMPLATES, CATEGORY_LABELS, ActivityCategory } from "@/data/activities";
 import { Activity, Routine } from "@/types/routine";
 import { saveRoutine } from "@/lib/storage";
@@ -17,6 +32,17 @@ const CreateRoutine = () => {
   const [routineType, setRoutineType] = useState<"morning" | "evening" | "custom">("morning");
   const [activities, setActivities] = useState<Activity[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<ActivityCategory>("morning");
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   const addActivity = (template: typeof ACTIVITY_TEMPLATES[0]) => {
     const newActivity: Activity = {
@@ -34,6 +60,20 @@ const CreateRoutine = () => {
 
   const removeActivity = (id: string) => {
     setActivities(activities.filter((a) => a.id !== id));
+  };
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (over && active.id !== over.id) {
+      setActivities((items) => {
+        const oldIndex = items.findIndex((item) => item.id === active.id);
+        const newIndex = items.findIndex((item) => item.id === over.id);
+        const newItems = arrayMove(items, oldIndex, newIndex);
+        // Update order property
+        return newItems.map((item, index) => ({ ...item, order: index }));
+      });
+    }
   };
 
   const handleSave = () => {
@@ -106,7 +146,7 @@ const CreateRoutine = () => {
           </div>
         </div>
 
-        {/* Current activities */}
+        {/* Current activities with drag and drop */}
         {activities.length > 0 && (
           <div>
             <div className="flex items-center justify-between mb-2">
@@ -117,15 +157,29 @@ const CreateRoutine = () => {
                 {totalDuration} min total
               </span>
             </div>
-            <div className="space-y-2">
-              {activities.map((activity) => (
-                <RoutineActivityItem
-                  key={activity.id}
-                  activity={activity}
-                  onRemove={() => removeActivity(activity.id)}
-                />
-              ))}
-            </div>
+            <p className="text-xs text-muted-foreground mb-2">
+              Drag to reorder activities
+            </p>
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
+            >
+              <SortableContext
+                items={activities.map((a) => a.id)}
+                strategy={verticalListSortingStrategy}
+              >
+                <div className="space-y-2">
+                  {activities.map((activity) => (
+                    <SortableActivity
+                      key={activity.id}
+                      activity={activity}
+                      onRemove={() => removeActivity(activity.id)}
+                    />
+                  ))}
+                </div>
+              </SortableContext>
+            </DndContext>
           </div>
         )}
 
