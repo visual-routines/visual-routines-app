@@ -1,73 +1,189 @@
-# Welcome to your Lovable project
+# Kids Routine Builder
 
-## Project info
+A mobile-first React application that helps parents create and manage daily routines for their children. Built with React, TypeScript, and Capacitor for native iOS/Android deployment.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Features
 
-## How can I edit this code?
+- **Create Custom Routines**: Build personalized morning, evening, or custom routines
+- **Activity Library**: 20+ pre-built activities across 6 categories (Morning, Hygiene, Meals, Play, Learning, Evening)
+- **Drag & Drop Reordering**: Easily rearrange activities within a routine
+- **Progress Tracking**: Track completion of routine activities
+- **Templates**: Pre-made routine templates to get started quickly
+- **Offline Support**: Works without internet connection
+- **Native Mobile**: Deploy as a native iOS or Android app via Capacitor
 
-There are several ways of editing your application.
+## Tech Stack
 
-**Use Lovable**
+- **React 18** - UI framework
+- **TypeScript** - Type safety
+- **Vite** - Build tool
+- **Tailwind CSS** - Styling
+- **shadcn/ui** - UI components
+- **Capacitor** - Native mobile deployment
+- **@dnd-kit** - Drag and drop functionality
+- **React Router** - Navigation
+- **Sonner** - Toast notifications
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## Project Structure
 
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+src/
+├── components/
+│   ├── ui/                    # shadcn/ui components
+│   ├── ActivityCard.tsx       # Displays an activity template
+│   ├── MobileLayout.tsx       # Main layout wrapper with header/nav
+│   ├── NavLink.tsx           # Navigation link component
+│   ├── RoutineActivityItem.tsx # Activity item in routine list
+│   ├── RoutineCard.tsx       # Displays a saved routine
+│   └── SortableActivity.tsx  # Draggable activity wrapper
+├── data/
+│   ├── activities.ts         # Activity templates and categories
+│   └── templates.ts          # Pre-made routine templates
+├── lib/
+│   ├── storage.ts            # localStorage utilities
+│   └── utils.ts              # Helper functions
+├── pages/
+│   ├── Index.tsx             # Home page with routine list
+│   ├── CreateRoutine.tsx     # Routine builder with drag & drop
+│   ├── ViewRoutine.tsx       # View and track routine progress
+│   ├── Templates.tsx         # Browse routine templates
+│   └── NotFound.tsx          # 404 page
+├── types/
+│   └── routine.ts            # TypeScript interfaces
+└── hooks/
+    └── use-mobile.tsx        # Mobile detection hook
 ```
 
-**Edit a file directly in GitHub**
+## Data Storage
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### How Storage Works
 
-**Use GitHub Codespaces**
+The app uses **localStorage** for data persistence. This is a browser API that stores data as key-value pairs in the user's browser (or WebView in native apps).
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+**Why localStorage (not SQLite)?**
+- localStorage is simpler and sufficient for this use case
+- Works seamlessly in both web browsers and Capacitor WebViews
+- Data persists across page refreshes and app restarts
+- No setup or database configuration required
+- Perfect for small datasets (routines are typically small JSON objects)
 
-## What technologies are used for this project?
+**Storage Implementation** (`src/lib/storage.ts`):
 
-This project is built with:
+```typescript
+const STORAGE_KEY = "kids-routines";
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+// Get all saved routines
+getRoutines(): Routine[]
 
-## How can I deploy this project?
+// Save or update a routine
+saveRoutine(routine: Routine): void
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+// Delete a routine by ID
+deleteRoutine(id: string): void
 
-## Can I connect a custom domain to my Lovable project?
+// Get a specific routine by ID
+getRoutineById(id: string): Routine | undefined
+```
 
-Yes, you can!
+**Data Structure:**
+```typescript
+interface Routine {
+  id: string;           // Unique identifier
+  name: string;         // Display name
+  type: "morning" | "evening" | "custom";
+  activities: Activity[];
+  createdAt: string;    // ISO date string
+  updatedAt: string;    // ISO date string
+}
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+interface Activity {
+  id: string;
+  templateId: string;
+  name: string;
+  icon: string;
+  category: ActivityCategory;
+  duration: number;     // in minutes
+  order: number;
+  isCompleted?: boolean;
+}
+```
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+**Storage Limits:**
+- localStorage typically has a 5-10MB limit per origin
+- Each routine is ~1-2KB, supporting hundreds of routines
+- For larger datasets, consider IndexedDB or SQLite (via Capacitor plugins)
+
+## Development
+
+### Prerequisites
+- Node.js 18+
+- npm or bun
+
+### Setup
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+```
+
+## Native Mobile Deployment
+
+### Prerequisites for Native Builds
+- **iOS**: macOS with Xcode installed
+- **Android**: Android Studio installed
+
+### Setup Steps
+
+1. **Export to GitHub**: Click "Export to GitHub" in Lovable
+2. **Clone locally**:
+   ```bash
+   git clone <your-repo-url>
+   cd <project-name>
+   npm install
+   ```
+
+3. **Add native platforms**:
+   ```bash
+   npx cap add ios      # For iOS
+   npx cap add android  # For Android
+   ```
+
+4. **Build and sync**:
+   ```bash
+   npm run build
+   npx cap sync
+   ```
+
+5. **Run on device/emulator**:
+   ```bash
+   npx cap run ios      # Opens in Xcode
+   npx cap run android  # Opens in Android Studio
+   ```
+
+### Hot Reload During Development
+
+The `capacitor.config.ts` is configured to point to the Lovable preview URL for hot reload during development. Before publishing to app stores, update the config to use the local build:
+
+```typescript
+// For production, remove or comment out the server block:
+// server: {
+//   url: '...',
+//   cleartext: true
+// }
+```
+
+### Publishing to App Stores
+
+1. Update `capacitor.config.ts` for production
+2. Run `npm run build && npx cap sync`
+3. **iOS**: Open in Xcode, archive, and submit to App Store Connect
+4. **Android**: Open in Android Studio, generate signed APK/AAB, upload to Play Console
+
+## License
+
+MIT
