@@ -45,6 +45,9 @@
     --play: 320 70% 55%;
     --learning: 260 70% 60%;
     --evening: 240 50% 55%;
+    --clothing: 15 85% 55%;
+    --school: 170 70% 45%;
+    --organization: 290 50% 55%;
 
     /* Playful accents */
     --sunshine: 45 100% 60%;
@@ -89,6 +92,9 @@
     --play: 320 70% 50%;
     --learning: 260 70% 55%;
     --evening: 240 50% 50%;
+    --clothing: 15 85% 50%;
+    --school: 170 70% 40%;
+    --organization: 290 50% 50%;
 
     --sunshine: 45 100% 55%;
     --coral: 10 90% 60%;

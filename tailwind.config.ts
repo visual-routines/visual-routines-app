@@ -57,6 +57,9 @@ export default {
         play: "hsl(var(--play))",
         learning: "hsl(var(--learning))",
         evening: "hsl(var(--evening))",
+        clothing: "hsl(var(--clothing))",
+        school: "hsl(var(--school))",
+        organization: "hsl(var(--organization))",
         // Playful accents
         sunshine: "hsl(var(--sunshine))",
         coral: "hsl(var(--coral))",
