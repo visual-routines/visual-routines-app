@@ -18,6 +18,8 @@ export interface Routine {
   activities: Activity[];
   createdAt: string;
   updatedAt: string;
+  recurring?: boolean;
+  lastResetDate?: string; // ISO date string (YYYY-MM-DD)
 }
 
 export interface RoutineTemplate {

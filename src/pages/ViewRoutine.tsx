@@ -4,7 +4,8 @@ import { MobileLayout } from "@/components/MobileLayout";
 import { RoutineActivityItem } from "@/components/RoutineActivityItem";
 import { Routine } from "@/types/routine";
 import { getRoutineById, saveRoutine, deleteRoutine } from "@/lib/storage";
-import { Trash2, RotateCcw, Clock, Download } from "lucide-react";
+import { checkAndResetRecurringRoutine } from "@/lib/routineReset";
+import { Trash2, RotateCcw, Clock, Download, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
 import { exportRoutineToPdf } from "@/lib/pdfExport";
 
@@ -17,7 +18,9 @@ const ViewRoutine = () => {
     if (id) {
       const found = getRoutineById(id);
       if (found) {
-        setRoutine(found);
+        // Check if recurring routine needs auto-reset
+        const checkedRoutine = checkAndResetRecurringRoutine(found);
+        setRoutine(checkedRoutine);
       } else {
         navigate("/");
       }
@@ -115,6 +118,13 @@ const ViewRoutine = () => {
               <span className="text-sm">{totalDuration} min</span>
             </div>
           </div>
+
+          {routine.recurring && (
+            <div className="flex items-center gap-2 mb-3 text-sm text-primary">
+              <RefreshCw className="w-4 h-4" />
+              <span>Daily reset enabled</span>
+            </div>
+          )}
 
           {/* Progress bar */}
           <div className="h-3 bg-muted rounded-full overflow-hidden mb-3">

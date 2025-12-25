@@ -32,6 +32,7 @@ const CreateRoutine = () => {
   const [routineType, setRoutineType] = useState<"morning" | "evening" | "custom">("morning");
   const [activities, setActivities] = useState<Activity[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<ActivityCategory>("morning");
+  const [recurring, setRecurring] = useState(false);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -93,6 +94,8 @@ const CreateRoutine = () => {
       activities,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
+      recurring,
+      lastResetDate: recurring ? new Date().toISOString().split("T")[0] : undefined,
     };
 
     saveRoutine(routine);
@@ -144,6 +147,28 @@ const CreateRoutine = () => {
               </button>
             ))}
           </div>
+        </div>
+
+        {/* Recurring toggle */}
+        <div className="flex items-center justify-between bg-card rounded-xl p-4 border border-border">
+          <div>
+            <p className="font-semibold text-foreground">Daily Reset</p>
+            <p className="text-sm text-muted-foreground">Auto-reset progress each day</p>
+          </div>
+          <button
+            onClick={() => setRecurring(!recurring)}
+            className={cn(
+              "w-12 h-7 rounded-full transition-colors relative",
+              recurring ? "bg-primary" : "bg-muted"
+            )}
+          >
+            <span
+              className={cn(
+                "absolute top-1 w-5 h-5 rounded-full bg-white shadow transition-transform",
+                recurring ? "translate-x-6" : "translate-x-1"
+              )}
+            />
+          </button>
         </div>
 
         {/* Current activities with drag and drop */}
