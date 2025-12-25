@@ -43,13 +43,14 @@ async function preloadIcons(activities: Activity[]): Promise<Map<string, string>
   const iconMap = new Map<string, string>();
   
   const loadPromises = activities.map(async (activity) => {
-    const iconSrc = ACTIVITY_PNG_ICONS[activity.id];
-    if (iconSrc && !iconMap.has(activity.id)) {
+    // Use templateId to look up the icon
+    const iconSrc = ACTIVITY_PNG_ICONS[activity.templateId];
+    if (iconSrc && !iconMap.has(activity.templateId)) {
       try {
         const dataUrl = await loadImageAsDataUrl(iconSrc);
-        iconMap.set(activity.id, dataUrl);
+        iconMap.set(activity.templateId, dataUrl);
       } catch (error) {
-        console.warn(`Failed to load icon for ${activity.id}:`, error);
+        console.warn(`Failed to load icon for ${activity.templateId}:`, error);
       }
     }
   });
@@ -176,15 +177,15 @@ export async function exportRoutineToPdf(
     pdf.setFillColor(...categoryColor);
     pdf.roundedRect(elementX, indicatorY, indicatorSize, indicatorSize, 2, 2, "F");
 
-    // Icon
-    const iconDataUrl = iconMap.get(activity.id);
+    // Icon - use templateId to look up
+    const iconDataUrl = iconMap.get(activity.templateId);
     if (iconDataUrl) {
       const iconX = elementX + 2;
       const iconY = indicatorY + 2;
       try {
         pdf.addImage(iconDataUrl, "PNG", iconX, iconY, iconSizeMm, iconSizeMm);
       } catch (error) {
-        console.warn(`Failed to add icon for ${activity.id}:`, error);
+        console.warn(`Failed to add icon for ${activity.templateId}:`, error);
       }
     }
     elementX += indicatorSize + 6;
