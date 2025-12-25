@@ -39,13 +39,14 @@ jobs:
         run: |
           cd ios/App
           xcodebuild \
-            -project App.xcodeproj \
-            -scheme App \
-            -configuration Debug \
-            -sdk iphonesimulator \
-            -destination 'platform=iOS Simulator,name=iPhone 15' \
-            -derivedDataPath build \
-            CODE_SIGNING_ALLOWED=NO
+          -project App.xcodeproj \
+          -scheme App \
+          -configuration Debug \
+          -sdk iphonesimulator \
+          -destination 'generic/platform=iOS Simulator' \
+          -derivedDataPath build \
+          CODE_SIGNING_ALLOWED=NO
+
 
       - name: Create .app archive
         run: |
