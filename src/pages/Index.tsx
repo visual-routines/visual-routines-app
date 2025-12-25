@@ -6,9 +6,21 @@ import { Routine } from "@/types/routine";
 import { getRoutines } from "@/lib/storage";
 import { Plus, Sparkles } from "lucide-react";
 
+const getGreeting = () => {
+  const hour = new Date().getHours();
+  if (hour >= 5 && hour < 12) {
+    return { text: "Good morning!", emoji: "☀️", subtitle: "Let's have a great day with your routines" };
+  } else if (hour >= 12 && hour < 17) {
+    return { text: "Good afternoon!", emoji: "🌤️", subtitle: "Keep up the great work with your routines" };
+  } else {
+    return { text: "Good evening!", emoji: "🌙", subtitle: "Wind down with your evening routines" };
+  }
+};
+
 const Index = () => {
   const navigate = useNavigate();
   const [routines, setRoutines] = useState<Routine[]>([]);
+  const greeting = getGreeting();
 
   useEffect(() => {
     setRoutines(getRoutines());
@@ -20,10 +32,10 @@ const Index = () => {
         {/* Welcome section */}
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-foreground mb-1">
-            Good morning! ☀️
+            {greeting.text} {greeting.emoji}
           </h1>
           <p className="text-muted-foreground">
-            Let's have a great day with your routines
+            {greeting.subtitle}
           </p>
         </div>
 
