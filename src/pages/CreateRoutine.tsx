@@ -212,6 +212,7 @@ const CreateRoutine = () => {
             {filteredTemplates.map((template) => (
               <ActivityCard
                 key={template.id}
+                id={template.id}
                 name={template.name}
                 icon={template.icon}
                 category={template.category}

@@ -1,7 +1,9 @@
-import { ACTIVITY_ICONS, CATEGORY_COLORS, ActivityCategory } from "@/data/activities";
+import { CATEGORY_COLORS, ActivityCategory } from "@/data/activities";
+import { ActivityIcon } from "@/components/ActivityIcon";
 import { cn } from "@/lib/utils";
 
 interface ActivityCardProps {
+  id: string;
   name: string;
   icon: string;
   category: ActivityCategory;
@@ -13,6 +15,7 @@ interface ActivityCardProps {
 }
 
 export function ActivityCard({
+  id,
   name,
   icon,
   category,
@@ -22,18 +25,10 @@ export function ActivityCard({
   showDuration = true,
   size = "md",
 }: ActivityCardProps) {
-  const IconComponent = ACTIVITY_ICONS[icon];
-  
   const sizeClasses = {
     sm: "p-2 gap-1",
     md: "p-3 gap-2",
     lg: "p-4 gap-3",
-  };
-  
-  const iconSizes = {
-    sm: "w-6 h-6",
-    md: "w-8 h-8",
-    lg: "w-10 h-10",
   };
   
   const textSizes = {
@@ -58,9 +53,7 @@ export function ActivityCard({
           CATEGORY_COLORS[category]
         )}
       >
-        {IconComponent && (
-          <IconComponent className={cn(iconSizes[size], "text-primary-foreground")} />
-        )}
+        <ActivityIcon activityId={id} iconKey={icon} size={size} />
       </div>
       <span className={cn("font-semibold text-foreground mt-1 text-center leading-tight", textSizes[size])}>
         {name}
