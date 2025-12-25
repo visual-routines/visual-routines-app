@@ -1,4 +1,4 @@
-name: Build iOS App
+name: Build iOS App (Simulator)
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
 jobs:
   build:
     runs-on: macos-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -22,13 +22,10 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm install --no-audit --no-fund
+        run: npm ci
 
       - name: Build web app
         run: npm run build
-
-      - name: Install CocoaPods
-        run: sudo gem install cocoapods
 
       - name: Add iOS platform
         run: |
@@ -38,17 +35,11 @@ jobs:
       - name: Sync Capacitor
         run: npx cap sync ios
 
-      - name: Verify Podfile
-        run: |
-          ls -la ios/App
-          test -f ios/App/Podfile
-
-      - name: Install Pods
+      - name: Build iOS app (Simulator)
         run: |
           cd ios/App
-          pod install --repo-update
-          cd ios/App
-          xcodebuild -workspace App.xcworkspace \
+          xcodebuild \
+            -project App.xcodeproj \
             -scheme App \
             -configuration Debug \
             -sdk iphonesimulator \
