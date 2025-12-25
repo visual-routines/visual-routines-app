@@ -31,7 +31,9 @@ jobs:
         run: sudo gem install cocoapods
 
       - name: Add iOS platform
-        run: npx cap add ios
+        run: |
+          rm -rf ios
+          npx cap add ios
 
       - name: Sync Capacitor
         run: npx cap sync ios
@@ -39,7 +41,7 @@ jobs:
       - name: Install Pods
         run: |
           cd ios/App
-          pod install
+          pod install --repo-update
 
       - name: Build iOS (Unsigned)
         run: |
