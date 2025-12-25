@@ -177,9 +177,94 @@ The `capacitor.config.ts` is configured to point to the Lovable preview URL for 
 // }
 ```
 
-### Publishing to App Stores
+## GitHub Actions CI/CD
 
-1. Update `capacitor.config.ts` for production
+The project includes GitHub Actions workflows that automatically build Android and iOS packages on every push to `main`.
+
+### Workflows
+
+| Workflow | File | Output |
+|----------|------|--------|
+| Android APK | `.github/workflows/build-android.yml` | Debug APK |
+| iOS App | `.github/workflows/build-ios.yml` | Simulator .app bundle |
+
+### Downloading Build Artifacts
+
+1. Go to your GitHub repository
+2. Click the **Actions** tab
+3. Select the completed workflow run (green checkmark)
+4. Scroll down to **Artifacts**
+5. Download `app-debug` (Android) or `ios-simulator-app` (iOS)
+
+### Installing Build Files on Your Phone
+
+#### Android APK Installation
+
+1. Download the `app-debug.apk` from GitHub Actions artifacts
+2. Transfer to your Android phone (email, cloud storage, USB cable)
+3. On your phone, go to **Settings > Security > Install unknown apps**
+4. Enable installation for your file manager or browser
+5. Open the APK file and tap **Install**
+6. The app will appear in your app drawer
+
+**Note:** Debug APKs work on any Android device without signing. For Play Store distribution, you'll need a signed release APK.
+
+#### iOS App Installation
+
+The GitHub Actions workflow builds for **iOS Simulator only** (unsigned). To install on a real iPhone, you need:
+
+**Option 1: TestFlight (Recommended for real devices)**
+1. Enroll in Apple Developer Program ($99/year)
+2. Create a signed build in Xcode
+3. Upload to App Store Connect
+4. Distribute via TestFlight
+
+**Option 2: Local Xcode Build**
+1. Clone the repository on a Mac
+2. Open `ios/App/App.xcworkspace` in Xcode
+3. Connect your iPhone via USB
+4. Select your device as the build target
+5. Click **Run** (Xcode will install directly to your phone)
+6. On first install, go to **Settings > General > Device Management** to trust the developer certificate
+
+**Option 3: iOS Simulator**
+1. Download the `ios-simulator-app` artifact
+2. Unzip to get `App.app`
+3. Open Terminal and run:
+   ```bash
+   xcrun simctl boot "iPhone 15"
+   xcrun simctl install booted /path/to/App.app
+   xcrun simctl launch booted app.lovable.cea97572b9aa46cfa6a028b683731f53
+   ```
+
+### Building Signed Release Versions
+
+#### Android Release APK/AAB
+
+For Play Store distribution, create a signing key and update the workflow:
+
+```yaml
+# Add to build-android.yml for release builds
+- name: Build Release APK
+  run: |
+    cd android
+    ./gradlew assembleRelease
+  env:
+    KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+    KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+    KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+```
+
+#### iOS Release Build
+
+iOS release builds require:
+1. Apple Developer account
+2. Provisioning profiles and certificates
+3. Xcode Cloud or Fastlane for automated signing
+
+## Publishing to App Stores
+
+1. Update `capacitor.config.ts` for production (remove server URL)
 2. Run `npm run build && npx cap sync`
 3. **iOS**: Open in Xcode, archive, and submit to App Store Connect
 4. **Android**: Open in Android Studio, generate signed APK/AAB, upload to Play Console
