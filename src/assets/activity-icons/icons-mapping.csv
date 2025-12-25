@@ -1,0 +1,124 @@
+id,path,en,es
+icon_1,afternoon.png,Afternoon,Tarde
+icon_2,alarm_clock.png,Alarm clock,Reloj despertador
+icon_3,bathtub.png,Bathtub,Bañera
+icon_4,boy_brushing_hair.png,Brushing hair,Cepillarse el cabello
+icon_5,boy_doing_homework.png,Doing homework,Hacer la tarea
+icon_6,boy_eating_cookie.png,Eating cookie,Comer galleta
+icon_7,boy_eating_fruit.png,Eating fruit,Comer fruta
+icon_8,boy_eating_sandwich.png,Eating sandwich,Comer sándwich
+icon_9,boy_exam_done.png,Exam done,Examen terminado
+icon_10,boy_exam.png,Exam,Examen
+icon_11,boy_homework_done.png,Homework done,Tarea terminada
+icon_12,boy_lunch_at_school.png,Lunch at school,Almuerzo en la escuela
+icon_13,boy_put_shirt_on.png,Put shirt on,Ponerse la camiseta
+icon_14,boy_reading.png,Reading,Lectura
+icon_15,boy_school_desk.png,School desk,Escritorio escolar
+icon_16,boy_school_recess.png,School recess,Recreo escolar
+icon_17,boy_socks.png,Socks,Calcetines
+icon_18,boy_tying_shoelaces.png,Tying shoelaces,Amarrarse los zapatos
+icon_19,boy_wash_face_with_soap.png,Wash face with soap,Lavarse la cara con jabón
+icon_20,boy_wash_face_with_water.png,Wash face with water,Lavarse la cara con agua
+icon_21,boy_wash_hands_with_soap.png,Wash hands with soap,Lavarse las manos con jabón
+icon_22,boy_wash_hands_with_water.png,Wash hands with water,Lavarse las manos con agua
+icon_23,boy_water_bottle.png,Drink water,Beber agua
+icon_24,boy_water_glass.png,Drink water,Beber agua
+icon_25,brush_teeth.png,Brush teeth,Cepillarse los dientes
+icon_26,clothes_laundry_basket.png,Clothes laundry basket,Canasta de ropa sucia
+icon_27,crocs.png,Crocs,Crocs
+icon_28,dry_face_with_towel.png,Dry face with towel,Secar la cara con toalla
+icon_29,dry_hands_with_towel.png,Dry hands with towel,Secar las manos con toalla
+icon_30,exam_done.png,Exam done,Examen terminado
+icon_31,exam.png,Exam,Examen
+icon_32,find_compas.png,Find compas,Buscar compás
+icon_33,find_eraser.png,Find eraser,Buscar borrador
+icon_34,find_glasses.png,Find glasses,Buscar gafas
+icon_35,find_homework_sheet.png,Find homework sheet,Buscar hoja de tarea
+icon_36,find_lunch_bag.png,Find lunch bag,Buscar lonchera
+icon_37,find_marker.png,Find marker,Buscar marcador
+icon_38,find_notebok.png,Find notebok,Buscar cuaderno
+icon_39,find_pencil.png,Find pencil,Buscar lápiz
+icon_40,find_ruler.png,Find ruler,Buscar regla
+icon_41,find_school_backpack.png,Find school backpack,Buscar mochila escolar
+icon_42,find_textbook.png,Find textbook,Buscar libro de texto
+icon_43,find_whiteboard.png,Find whiteboard,Buscar pizarra
+icon_44,fold_clothes.png,Fold clothes,Doblar la ropa
+icon_45,girl_brush_teeth.png,Brush teeth,Cepillarse los dientes
+icon_46,girl_brushing_hair.png,Brushing hair,Cepillarse el cabello
+icon_47,girl_dry_face_with_towel.png,Dry face with towel,Secar la cara con toalla
+icon_48,girl_dry_hands_with_towel.png,Dry hands with towel,Secar las manos con toalla
+icon_49,girl_exam_done.png,Exam done,Examen terminado
+icon_50,girl_exam.png,Exam,Examen
+icon_51,girl_put_shirt_on.png,Put shirt on,Ponerse la camiseta
+icon_52,girl_put_toothpaste_on_toothbrush.png,Put toothpaste on toothbrush,Poner pasta en el cepillo
+icon_53,girl_reading.png,Reading,Lectura
+icon_54,girl_rinse_mouth_with_water.png,Rinse mouth with water,Enjuagarse la boca con agua
+icon_55,girl_school_desk.png,School desk,Escritorio escolar
+icon_56,girl_school_lunch.png,Lunch at school,Almuerzo en la escuela
+icon_57,girl_socks.png,Socks,Calcetines
+icon_58,girl_take_shirt_off.png,Take shirt off,Quitarse la camiseta
+icon_59,girl_tying_shoelaces.png,Tying shoelaces,Amarrarse los zapatos
+icon_60,girl_wash_face_with_soap.png,Wash face with soap,Lavarse la cara con jabón
+icon_61,girl_wash_face_with_water.png,Wash face with water,Lavarse la cara con agua
+icon_62,girl_wash_hands_with_soap.png,Wash hands with soap,Lavarse las manos con jabón
+icon_63,girl_wash_hands_with_water.png,Wash hands with water,Lavarse las manos con agua
+icon_64,girl_water_bottle.png,Drink water,Beber agua
+icon_65,girl_water_glass.png,Drink water,Beber agua
+icon_66,glasses_in_case.png,Glasses in case,Gafas en el estuche
+icon_67,gloves.png,Gloves,Guantes
+icon_68,homework_done.png,Homework done,Tarea terminada
+icon_69,homework.png,Homework,Tarea
+icon_70,hoodie_with_zipper.png,Hoodie with zipper,Sudadera con cierre
+icon_71,hoodie.png,Hoodie,Sudadera
+icon_72,laptop_not_allowed.png,Laptop not allowed,Laptop no permitida
+icon_73,laptop.png,Laptop,Laptop
+icon_74,midday.png,Midday,Mediodía
+icon_75,morning.png,Morning,Mañana
+icon_76,night.png,Night,Noche
+icon_77,organize_desk.png,Organize desk,Organizar escritorio
+icon_78,pencil_case.png,Pencil case,Cartuchera
+icon_79,phone_not_allowed.png,Phone not allowed,Teléfono no permitido
+icon_80,phone.png,Phone,Teléfono
+icon_81,proud_mom_and_dad.png,Proud mom and dad,Papá y mamá orgullosos
+icon_82,proud_mom.png,Proud mom,Mamá orgullosa
+icon_83,put_compas_in_pencil_case.png,Put compas in pencil case,Guardar compás en la cartuchera
+icon_84,put_eraser_in_pencil_case.png,Put eraser in pencil case,Guardar borrador en la cartuchera
+icon_85,put_marker_in_pencil_case.png,Put marker in pencil case,Guardar marcador en la cartuchera
+icon_86,put_notebook_in_backpack.png,Put notebook in backpack,Guardar cuaderno en la mochila
+icon_87,put_pants_on.png,Put pants on,Ponerse pantalones
+icon_88,put_pencil_case_in_backpack.png,Put pencil case in backpack,Guardar cartuchera en la mochila
+icon_89,put_pencil_in_case.png,Put pencil in case,Guardar lápiz en la cartuchera
+icon_90,put_ruler_in_pencil_case.png,Put ruler in pencil case,Guardar regla en la cartuchera
+icon_91,put_shirt_on.png,Put shirt on,Ponerse camiseta
+icon_92,put_toothpaste_on_toothbrush.png,Put toothpaste on toothbrush,Poner pasta dental en el cepillo
+icon_93,put_towel_on_hook.png,Put towel on hook,Colgar toalla en gancho
+icon_94,rain_jacket.png,Rain jacket,Impermeable
+icon_95,rinse_mouth_with_water.png,Rinse mouth with water,Enjuagarse la boca con agua
+icon_96,rinse_toothbrush.png,Rinse toothbrush,Enjuagar el cepillo de dientes
+icon_97,rubber_boots.png,Rubber boots,Botas de hule
+icon_98,sandals.png,Sandals,Sandalias
+icon_99,scarf.png,Scarf,Bufanda
+icon_100,school_desk.png,School desk,Escritorio escolar
+icon_101,shoes_2.png,Shoes 2,Zapatos 2
+icon_102,shoes.png,Shoes,Zapatos
+icon_103,shower.png,Shower,Ducha
+icon_104,sports_cap.png,Sports cap,Gorro deportivo
+icon_105,sweater.png,Sweater,Suéter
+icon_106,tablet_not_allowed.png,Tablet not allowed,Tableta no permitida
+icon_107,tablet.png,Tablet,Tableta
+icon_108,take_compas_out_of_pencil_case.png,Take compas out of pencil case,Sacar compás de la cartuchera
+icon_109,take_eraser_out_of_pencil_case.png,Take eraser out of pencil case,Sacar borrador de la cartuchera
+icon_110,take_marker_out_of_pencil_case.png,Take marker out of pencil case,Sacar marcador de la cartuchera
+icon_111,take_notebook_out_of_backpack.png,Take notebook out of backpack,Sacar cuaderno de la mochila
+icon_112,take_pencil_case_out_of_backpack.png,Take pencil case out of backpack,Sacar cartuchera de la mochila
+icon_113,take_pencil_out_of_case.png,Take pencil out of case,Sacar lápiz de la cartuchera
+icon_114,take_ruler_out_of_pencil_case.png,Take ruler out of pencil case,Sacar regla de la cartuchera
+icon_115,tie_shoe_grab_laces.png,Tie shoe grab laces,"Amarrar zapato, tomar cordones"
+icon_116,umbrella.png,Umbrella,Paraguas
+icon_117,video_game_not_allowed.png,Video game not allowed,Videojuego no permitido
+icon_118,video_game.png,Video game,Videojuego
+icon_119,wash_face_with_soap.png,Wash face with soap,Lavarse la cara con jabón
+icon_120,wash_face_with_water.png,Wash face with water,Lavarse la cara con agua
+icon_121,wash_hands_with_soap.png,Wash hands with soap,Lavarse las manos con jabón
+icon_122,wash_hands_with_water.png,Wash hands with water,Lavarse las manos con agua
+icon_123,winter_hat.png,Winter hat,Gorro de invierno
