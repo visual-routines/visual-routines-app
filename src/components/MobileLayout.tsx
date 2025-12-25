@@ -35,7 +35,7 @@ export function MobileLayout({ children, title, showBack, rightAction }: MobileL
           ) : (
             <div className="flex items-center gap-2">
               <Sun className="w-6 h-6 text-sunshine" />
-              <span className="font-bold text-lg text-foreground">Routiny</span>
+              <span className="font-bold text-lg text-foreground">Visual Routines</span>
             </div>
           )}
           
