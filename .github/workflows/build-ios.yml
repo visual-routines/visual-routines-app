@@ -47,7 +47,6 @@ jobs:
         run: |
           cd ios/App
           pod install --repo-update
-        run: |
           cd ios/App
           xcodebuild -workspace App.xcworkspace \
             -scheme App \
