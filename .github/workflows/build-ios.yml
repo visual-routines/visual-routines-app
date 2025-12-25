@@ -22,7 +22,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install --no-audit --no-fund
 
       - name: Build web app
         run: npm run build
@@ -38,12 +38,15 @@ jobs:
       - name: Sync Capacitor
         run: npx cap sync ios
 
+      - name: Verify Podfile
+        run: |
+          ls -la ios/App
+          test -f ios/App/Podfile
+
       - name: Install Pods
         run: |
           cd ios/App
           pod install --repo-update
-
-      - name: Build iOS (Unsigned)
         run: |
           cd ios/App
           xcodebuild -workspace App.xcworkspace \
