@@ -1,6 +1,5 @@
 import { Activity } from "@/types/routine";
-import { CATEGORY_COLORS } from "@/data/activities";
-import { ActivityIcon } from "@/components/ActivityIcon";
+import { ACTIVITY_ICONS, CATEGORY_COLORS } from "@/data/activities";
 import { cn } from "@/lib/utils";
 import { GripVertical, Trash2, Check } from "lucide-react";
 
@@ -21,6 +20,7 @@ export function RoutineActivityItem({
   showControls = true,
   isViewMode = false,
 }: RoutineActivityItemProps) {
+  const IconComponent = ACTIVITY_ICONS[activity.icon];
 
   return (
     <div
@@ -54,11 +54,9 @@ export function RoutineActivityItem({
           CATEGORY_COLORS[activity.category]
         )}
       >
-        <ActivityIcon 
-          activityId={activity.id} 
-          iconKey={activity.icon} 
-          size="md"
-        />
+        {IconComponent && (
+          <IconComponent className="w-6 h-6 text-primary-foreground" />
+        )}
       </div>
 
       <div className="flex-1 min-w-0">

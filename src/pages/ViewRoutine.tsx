@@ -4,8 +4,9 @@ import { MobileLayout } from "@/components/MobileLayout";
 import { RoutineActivityItem } from "@/components/RoutineActivityItem";
 import { Routine } from "@/types/routine";
 import { getRoutineById, saveRoutine, deleteRoutine } from "@/lib/storage";
-import { Trash2, RotateCcw, Clock } from "lucide-react";
+import { Trash2, RotateCcw, Clock, Download } from "lucide-react";
 import { toast } from "sonner";
+import { exportRoutineToPdf } from "@/lib/pdfExport";
 
 const ViewRoutine = () => {
   const { id } = useParams<{ id: string }>();
@@ -54,6 +55,23 @@ const ViewRoutine = () => {
     }
   };
 
+  const handleExportPdf = async () => {
+    try {
+      toast.loading("Generating PDF...");
+      await exportRoutineToPdf(routine, {
+        showCheckboxes: true,
+        showDuration: true,
+        iconSize: "large",
+      });
+      toast.dismiss();
+      toast.success("PDF downloaded!");
+    } catch (error) {
+      toast.dismiss();
+      toast.error("Failed to generate PDF");
+      console.error("PDF export error:", error);
+    }
+  };
+
   const completedCount = routine.activities.filter((a) => a.completed).length;
   const totalDuration = routine.activities.reduce((sum, a) => sum + a.duration, 0);
   const progress = routine.activities.length > 0 
@@ -65,12 +83,21 @@ const ViewRoutine = () => {
       title={routine.name}
       showBack
       rightAction={
-        <button
-          onClick={handleDelete}
-          className="p-2 text-destructive hover:bg-destructive/10 rounded-lg"
-        >
-          <Trash2 className="w-5 h-5" />
-        </button>
+        <div className="flex items-center gap-1">
+          <button
+            onClick={handleExportPdf}
+            className="p-2 text-primary hover:bg-primary/10 rounded-lg"
+            title="Export as PDF"
+          >
+            <Download className="w-5 h-5" />
+          </button>
+          <button
+            onClick={handleDelete}
+            className="p-2 text-destructive hover:bg-destructive/10 rounded-lg"
+          >
+            <Trash2 className="w-5 h-5" />
+          </button>
+        </div>
       }
     >
       <div className="px-4 py-4 space-y-6">
