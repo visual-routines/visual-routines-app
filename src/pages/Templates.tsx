@@ -1,19 +1,27 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MobileLayout } from "@/components/MobileLayout";
 import { ROUTINE_TEMPLATES } from "@/data/templates";
 import { ACTIVITY_ICONS, CATEGORY_COLORS } from "@/data/activities";
 import { Routine, Activity } from "@/types/routine";
 import { saveRoutine } from "@/lib/storage";
-import { Sun, Moon, Clock } from "lucide-react";
+import { Sun, Moon, Clock, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
 const Templates = () => {
   const navigate = useNavigate();
+  const [recurringState, setRecurringState] = useState<Record<string, boolean>>({});
+
+  const toggleRecurring = (templateId: string) => {
+    setRecurringState((prev) => ({ ...prev, [templateId]: !prev[templateId] }));
+  };
 
   const useTemplate = (templateId: string) => {
     const template = ROUTINE_TEMPLATES.find((t) => t.id === templateId);
     if (!template) return;
+
+    const isRecurring = recurringState[templateId] || false;
 
     const activities: Activity[] = template.activities.map((a, index) => ({
       ...a,
@@ -27,6 +35,8 @@ const Templates = () => {
       activities,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
+      recurring: isRecurring,
+      lastResetDate: isRecurring ? new Date().toISOString().split("T")[0] : undefined,
     };
 
     saveRoutine(routine);
@@ -107,6 +117,28 @@ const Templates = () => {
                       </div>
                     );
                   })}
+                </div>
+
+                {/* Recurring toggle */}
+                <div className="flex items-center justify-between bg-background/50 rounded-xl p-3 mb-3">
+                  <div className="flex items-center gap-2">
+                    <RefreshCw className="w-4 h-4 text-muted-foreground" />
+                    <span className="text-sm font-medium text-foreground">Daily Reset</span>
+                  </div>
+                  <button
+                    onClick={() => toggleRecurring(template.id)}
+                    className={cn(
+                      "w-10 h-6 rounded-full transition-colors relative",
+                      recurringState[template.id] ? "bg-primary" : "bg-muted"
+                    )}
+                  >
+                    <span
+                      className={cn(
+                        "absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform",
+                        recurringState[template.id] ? "translate-x-4" : "translate-x-0.5"
+                      )}
+                    />
+                  </button>
                 </div>
 
                 <button
