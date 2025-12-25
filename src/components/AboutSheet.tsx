@@ -27,12 +27,19 @@ export function AboutSheet({ trigger }: AboutSheetProps) {
         </DrawerHeader>
         <div className="px-4 pb-8 space-y-4">
           <p className="text-muted-foreground">
-            Visual Routines helps kids build independence by turning daily tasks 
-            into fun, visual checklists. Perfect for morning routines, bedtime 
-            routines, and everything in between.
+           Executive functions are cognitive processes that help us plan, 
+           focus attention, remember instructions, and manage multiple tasks 
+           successfully. For children, especially those with autism or ADHD, 
+           these skills can be challenging. Visual routines—such as step-by-step 
+           picture schedules or illustrated checklists—support executive
+           functioning by providing clear, predictable guidance. They reduce 
+           cognitive load, help with task initiation and completion, and promote 
+           independence by making abstract concepts like time, order, 
+           and priorities more concrete and accessible.
           </p>
           <div className="space-y-2 text-sm text-muted-foreground">
             <p>✓ Visual activity cards kids can understand</p>
+            <p>✓ Explore templates to get started</p>
             <p>✓ Daily auto-reset for recurring routines</p>
             <p>✓ Export routines as printable PDFs</p>
             <p>✓ Works offline on any device</p>
