@@ -24,8 +24,8 @@ export function MobileLayout({ children, title, showBack, rightAction }: MobileL
   return (
     <div className="flex flex-col min-h-screen bg-background">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg safe-top pt-8">
-        <div className="flex items-center justify-between px-4 py-3 pt-2">
+      <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg pt-12">
+        <div className="flex items-center justify-between px-4 py-3">
           {showBack ? (
             <button
               onClick={() => navigate(-1)}
