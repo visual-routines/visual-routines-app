@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Home, Plus, Layout } from "lucide-react";
+import { Home, Plus, Layout, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AboutSheet } from "./AboutSheet";
 
@@ -25,7 +25,7 @@ export function MobileLayout({ children, title, showBack, rightAction }: MobileL
     <div className="flex flex-col min-h-screen bg-background">
       {/* Header */}
       <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg safe-top pt-8">
-        <div className="flex items-center justify-between px-4 py-3">
+        <div className="flex items-center justify-between px-4 py-3 pt-2">
           {showBack ? (
             <button
               onClick={() => navigate(-1)}
@@ -35,7 +35,7 @@ export function MobileLayout({ children, title, showBack, rightAction }: MobileL
             </button>
           ) : (
             <div className="flex items-center gap-2">
-              <img src="/app-icon.png" alt="Visual Routines" className="w-7 h-7 rounded-lg" />
+              <Sun className="w-6 h-6 text-primary" />
               <span className="font-bold text-lg text-foreground">Visual Routines</span>
             </div>
           )}
