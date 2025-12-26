@@ -24,7 +24,7 @@ import { saveRoutine } from "@/lib/storage";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 
-const CATEGORIES: ActivityCategory[] = ["morning", "hygiene", "meals", "play", "learning", "evening"];
+const CATEGORIES: ActivityCategory[] = ["morning", "hygiene", "meals", "play", "learning", "evening", "clothing"];
 
 const CreateRoutine = () => {
   const navigate = useNavigate();
