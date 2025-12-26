@@ -44,6 +44,13 @@ jobs:
 
       - name: Copy app icon to Android resources
         run: |
+          # Capacitor/Android often uses adaptive icons (mipmap-anydpi-v26). If those exist,
+          # Android will ignore our mipmap PNGs and keep showing the default icon.
+          # Remove the adaptive icon resources so the launcher falls back to mipmap icons.
+          rm -rf android/app/src/main/res/mipmap-anydpi-v26
+          rm -f android/app/src/main/res/drawable*/ic_launcher*
+          rm -f android/app/src/main/res/mipmap*/ic_launcher*
+
           # Copy the 512px icon to all mipmap directories with appropriate sizes
           mkdir -p android/app/src/main/res/mipmap-mdpi
           mkdir -p android/app/src/main/res/mipmap-hdpi
