@@ -2,6 +2,9 @@ import jsPDF from "jspdf";
 import { Routine, Activity } from "@/types/routine";
 import { ACTIVITY_PNG_ICONS } from "@/data/activityIcons";
 import { CATEGORY_LABELS } from "@/data/activities";
+import { Filesystem, Directory } from "@capacitor/filesystem";
+import { Share } from "@capacitor/share";
+import { Capacitor } from "@capacitor/core";
 
 // Category colors for PDF (RGB values)
 const PDF_CATEGORY_COLORS: Record<string, [number, number, number]> = {
@@ -232,5 +235,28 @@ export async function exportRoutineToPdf(
 
   // Save the PDF
   const filename = `${routine.name.toLowerCase().replace(/\s+/g, "-")}-routine.pdf`;
-  pdf.save(filename);
+  
+  // Check if running on native mobile platform
+  if (Capacitor.isNativePlatform()) {
+    // Get PDF as base64
+    const pdfBase64 = pdf.output("datauristring").split(",")[1];
+    
+    // Save to device filesystem
+    const savedFile = await Filesystem.writeFile({
+      path: filename,
+      data: pdfBase64,
+      directory: Directory.Documents,
+    });
+    
+    // Open share dialog so user can save/share the file
+    await Share.share({
+      title: `${routine.name} Routine`,
+      text: "Here's your routine PDF",
+      url: savedFile.uri,
+      dialogTitle: "Save or Share PDF",
+    });
+  } else {
+    // Desktop browser - use standard download
+    pdf.save(filename);
+  }
 }
