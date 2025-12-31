@@ -235,24 +235,46 @@ export async function exportRoutineToPdf(
 
   // Save the PDF
   const filename = `${routine.name.toLowerCase().replace(/\s+/g, "-")}-routine.pdf`;
-  
+
   // Check if running on native mobile platform
   if (Capacitor.isNativePlatform()) {
-    // Get PDF as base64
     const pdfBase64 = pdf.output("datauristring").split(",")[1];
-    
-    // Save to device filesystem
-    const savedFile = await Filesystem.writeFile({
-      path: filename,
-      data: pdfBase64,
-      directory: Directory.Documents,
-    });
-    
-    // Open share dialog so user can save/share the file
+
+    // On Android, prefer external storage so the file is discoverable in file managers.
+    // If that fails (permissions / device rules), fall back to the app's Documents directory.
+    const preferredDirectory =
+      Capacitor.getPlatform() === "android" ? Directory.External : Directory.Documents;
+
+    let directoryUsed = preferredDirectory;
+
+    try {
+      await Filesystem.writeFile({
+        path: filename,
+        data: pdfBase64,
+        directory: preferredDirectory,
+      });
+    } catch (error) {
+      console.warn("Failed to write PDF to preferred directory, falling back.", error);
+      directoryUsed = Directory.Documents;
+      await Filesystem.writeFile({
+        path: filename,
+        data: pdfBase64,
+        directory: directoryUsed,
+      });
+    }
+
+    const fileUri = (
+      await Filesystem.getUri({
+        path: filename,
+        directory: directoryUsed,
+      })
+    ).uri;
+
+    // Open share dialog so user can save/share the file (and choose the destination)
     await Share.share({
       title: `${routine.name} Routine`,
       text: "Here's your routine PDF",
-      url: savedFile.uri,
+      files: [fileUri],
       dialogTitle: "Save or Share PDF",
     });
   } else {
