@@ -1,10 +1,11 @@
 import jsPDF from "jspdf";
 import { Routine, Activity } from "@/types/routine";
-import { ACTIVITY_PNG_ICONS } from "@/data/activityIcons";
-import { CATEGORY_LABELS } from "@/data/activities";
+import { getActivityIcon } from "@/data/activityIcons";
 import { Filesystem, Directory } from "@capacitor/filesystem";
 import { Share } from "@capacitor/share";
 import { Capacitor } from "@capacitor/core";
+
+export type GenderOption = "boy" | "girl" | "neutral";
 
 // Category colors for PDF (RGB values)
 const PDF_CATEGORY_COLORS: Record<string, [number, number, number]> = {
@@ -41,13 +42,16 @@ async function loadImageAsDataUrl(src: string): Promise<string> {
   });
 }
 
-// Preload all icons for a routine
-async function preloadIcons(activities: Activity[]): Promise<Map<string, string>> {
+// Preload all icons for a routine with optional gender
+async function preloadIcons(
+  activities: Activity[],
+  gender?: "boy" | "girl"
+): Promise<Map<string, string>> {
   const iconMap = new Map<string, string>();
   
   const loadPromises = activities.map(async (activity) => {
-    // Use templateId to look up the icon
-    const iconSrc = ACTIVITY_PNG_ICONS[activity.templateId];
+    // Use templateId to look up the icon with gender variant
+    const iconSrc = getActivityIcon(activity.templateId, gender);
     if (iconSrc && !iconMap.has(activity.templateId)) {
       try {
         const dataUrl = await loadImageAsDataUrl(iconSrc);
@@ -68,6 +72,7 @@ export interface ExportOptions {
   showDuration?: boolean;
   columnsPerPage?: 1 | 2 | 3;
   iconSize?: "small" | "medium" | "large";
+  gender?: GenderOption;
 }
 
 const ICON_SIZES = {
@@ -86,7 +91,11 @@ export async function exportRoutineToPdf(
     showDuration = true,
     columnsPerPage = 1,
     iconSize = "medium",
+    gender,
   } = options;
+  
+  // Convert gender option to the format expected by icon lookup
+  const iconGender = gender === "neutral" ? undefined : gender;
 
   // Create PDF (A4 size)
   const pdf = new jsPDF({
@@ -101,8 +110,8 @@ export async function exportRoutineToPdf(
   const contentWidth = pageWidth - margin * 2;
   const iconSizeMm = ICON_SIZES[iconSize];
   
-  // Preload all icons
-  const iconMap = await preloadIcons(routine.activities);
+  // Preload all icons with gender variant
+  const iconMap = await preloadIcons(routine.activities, iconGender);
 
   // Header
   pdf.setFontSize(24);
