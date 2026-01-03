@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { MobileLayout } from "@/components/MobileLayout";
 import { RoutineActivityItem } from "@/components/RoutineActivityItem";
+import { GenderSelectDialog, GenderOption } from "@/components/GenderSelectDialog";
 import { Routine } from "@/types/routine";
 import { getRoutineById, saveRoutine, deleteRoutine } from "@/lib/storage";
 import { checkAndResetRecurringRoutine } from "@/lib/routineReset";
@@ -13,6 +14,7 @@ const ViewRoutine = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [routine, setRoutine] = useState<Routine | null>(null);
+  const [showGenderDialog, setShowGenderDialog] = useState(false);
 
   useEffect(() => {
     if (id) {
@@ -58,16 +60,21 @@ const ViewRoutine = () => {
     }
   };
 
-  const handleExportPdf = async () => {
+  const handleExportClick = () => {
+    setShowGenderDialog(true);
+  };
+
+  const handleGenderSelect = async (gender: GenderOption) => {
     try {
       toast.loading("Generating PDF...");
       await exportRoutineToPdf(routine, {
         showCheckboxes: true,
         showDuration: true,
         iconSize: "large",
+        gender,
       });
       toast.dismiss();
-      toast.success("PDF downloaded!");
+      toast.success("PDF ready!");
     } catch (error) {
       toast.dismiss();
       toast.error("Failed to generate PDF");
@@ -88,7 +95,7 @@ const ViewRoutine = () => {
       rightAction={
         <div className="flex items-center gap-1">
           <button
-            onClick={handleExportPdf}
+            onClick={handleExportClick}
             className="p-2 text-primary hover:bg-primary/10 rounded-lg"
             title="Export as PDF"
           >
@@ -167,6 +174,12 @@ const ViewRoutine = () => {
           </div>
         </div>
       </div>
+
+      <GenderSelectDialog
+        open={showGenderDialog}
+        onOpenChange={setShowGenderDialog}
+        onSelect={handleGenderSelect}
+      />
     </MobileLayout>
   );
 };
