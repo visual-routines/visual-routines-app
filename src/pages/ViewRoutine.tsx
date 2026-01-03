@@ -65,18 +65,18 @@ const ViewRoutine = () => {
   };
 
   const handleGenderSelect = async (gender: GenderOption) => {
+    const toastId = toast.loading("Generating PDF...");
     try {
-      toast.loading("Generating PDF...");
       await exportRoutineToPdf(routine, {
         showCheckboxes: true,
         showDuration: true,
         iconSize: "large",
         gender,
       });
-      toast.dismiss();
-      toast.success("PDF ready!");
+      toast.dismiss(toastId);
+      toast.success("PDF ready!", { duration: 2000 });
     } catch (error) {
-      toast.dismiss();
+      toast.dismiss(toastId);
       toast.error("Failed to generate PDF");
       console.error("PDF export error:", error);
     }
