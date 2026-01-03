@@ -154,24 +154,24 @@ export const ACTIVITY_PNG_ICONS: Record<string, string> = {
   "wash-face-with-water": washFaceWithWater,
   "dry-face-with-towel": dryFaceWithTowel,
   
-  // Hygiene - Hair
-  "brush-hair": boyBrushingHair,
+  // Hygiene - Hair (neutral versions - use gender variants when available)
+  "brush-hair": boyBrushingHair, // Default fallback, prefer gender variants
   "brushing-hair": boyBrushingHair,
   
   // Hygiene - Other
   "put-towel-on-hook": putTowelOnHook,
   
-  // Clothing - Basics
+  // Clothing - Basics (use neutral when possible, boy as default fallback)
   "put-shirt-on": putShirtOn,
-  "take-shirt-off": girlTakeShirtOff,
+  "take-shirt-off": putShirtOn, // Use neutral shirt icon as fallback
   "put-pants-on": putPantsOn,
-  "socks": boySocks,
+  "socks": boySocks, // Will be overridden by gender variants
   "get-dressed": putShirtOn,
   
   // Clothing - Shoes
   "shoes": shoes,
   "shoes-2": shoes2,
-  "tying-shoelaces": boyTyingShoelaces,
+  "tying-shoelaces": boyTyingShoelaces, // Will be overridden by gender variants
   "tie-shoe-grab-laces": tieShoeGrabLaces,
   "crocs": crocs,
   "sandals": sandals,
