@@ -271,4 +271,4 @@ iOS release builds require:
 
 ## License
 
-MIT
+GPL-3
