@@ -42,21 +42,13 @@ jobs:
       - name: Sync Capacitor
         run: npx cap sync android
 
-      - name: Fix Maven repository order
+      - name: Work around Maven Central 403
         run: |
-          # Ensure Google's Maven is checked before Maven Central to avoid 403 errors
-          sed -i 's/mavenCentral()/google()\n        mavenCentral()/g' android/build.gradle
-          # Add explicit repository to settings.gradle if needed
-          cat >> android/settings.gradle << 'EOF'
-          
-          dependencyResolutionManagement {
-              repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
-              repositories {
-                  google()
-                  mavenCentral()
-              }
-          }
-          EOF
+          # GitHub-hosted runners sometimes get 403s from repo.maven.apache.org (mavenCentral).
+          # Replace mavenCentral() with the repo1.maven.org endpoint to make dependency downloads reliable.
+          sed -i 's/mavenCentral()/maven { url "https:\/\/repo1.maven.org\/maven2" }/g' android/build.gradle
+          sed -i 's/mavenCentral()/maven { url "https:\/\/repo1.maven.org\/maven2" }/g' android/settings.gradle || true
+
 
       - name: Copy app icon to Android resources
         run: |
