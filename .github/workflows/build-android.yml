@@ -42,6 +42,22 @@ jobs:
       - name: Sync Capacitor
         run: npx cap sync android
 
+      - name: Fix Maven repository order
+        run: |
+          # Ensure Google's Maven is checked before Maven Central to avoid 403 errors
+          sed -i 's/mavenCentral()/google()\n        mavenCentral()/g' android/build.gradle
+          # Add explicit repository to settings.gradle if needed
+          cat >> android/settings.gradle << 'EOF'
+          
+          dependencyResolutionManagement {
+              repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+              repositories {
+                  google()
+                  mavenCentral()
+              }
+          }
+          EOF
+
       - name: Copy app icon to Android resources
         run: |
           # Capacitor/Android often uses adaptive icons (mipmap-anydpi-v26). If those exist,
