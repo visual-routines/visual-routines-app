@@ -54,7 +54,7 @@ export function MobileLayout({ children, title, showBack, rightAction }: MobileL
       </header>
 
       {/* Content */}
-      <main className="flex-1 overflow-auto pb-20">
+      <main className="flex-1 overflow-auto pb-28">
         {children}
       </main>
 
