@@ -27,6 +27,15 @@ jobs:
       - name: Build web app
         run: npm run build
 
+      - name: Extract version from version.ts
+        id: version
+        run: |
+          VERSION_NAME=$(grep "VERSION_NAME" src/lib/version.ts | head -1 | sed 's/.*"\(.*\)".*/\1/')
+          VERSION_CODE=$(grep "VERSION_CODE" src/lib/version.ts | head -1 | sed 's/[^0-9]*\([0-9]*\).*/\1/')
+          echo "VERSION_NAME=$VERSION_NAME" >> $GITHUB_OUTPUT
+          echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_OUTPUT
+          echo "Extracted version: $VERSION_NAME ($VERSION_CODE)"
+
       - name: Add iOS platform
         run: |
           rm -rf ios
@@ -34,6 +43,14 @@ jobs:
 
       - name: Sync Capacitor
         run: npx cap sync ios
+
+      - name: Update Xcode project version
+        run: |
+          cd ios/App
+          # Update version in Info.plist
+          /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString ${{ steps.version.outputs.VERSION_NAME }}" App/Info.plist
+          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion ${{ steps.version.outputs.VERSION_CODE }}" App/Info.plist
+          echo "Updated iOS version to ${{ steps.version.outputs.VERSION_NAME }} (${{ steps.version.outputs.VERSION_CODE }})"
 
       - name: Build iOS app (Simulator)
         run: |
