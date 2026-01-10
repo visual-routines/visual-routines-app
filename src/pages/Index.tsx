@@ -4,7 +4,7 @@ import { MobileLayout } from "@/components/MobileLayout";
 import { RoutineCard } from "@/components/RoutineCard";
 import { Routine } from "@/types/routine";
 import { getRoutines } from "@/lib/storage";
-import { Plus, Sparkles } from "lucide-react";
+import { Plus, Sparkles, Printer } from "lucide-react";
 
 const getGreeting = () => {
   const hour = new Date().getHours();
@@ -82,8 +82,12 @@ const Index = () => {
               <h3 className="font-semibold text-foreground mb-2">
                 No routines yet
               </h3>
-              <p className="text-sm text-muted-foreground mb-4">
-                Create your first routine or pick a template
+              <p className="text-sm text-muted-foreground mb-2">
+                Create visual routines your kids can follow
+              </p>
+              <p className="text-xs text-muted-foreground mb-4 flex items-center justify-center gap-1">
+                <Printer className="w-3.5 h-3.5" />
+                Print them as beautiful PDFs!
               </p>
               <button
                 onClick={() => navigate("/create")}
