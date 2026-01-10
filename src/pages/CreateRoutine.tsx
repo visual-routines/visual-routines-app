@@ -20,9 +20,12 @@ import { ActivityCard } from "@/components/ActivityCard";
 import { SortableActivity } from "@/components/SortableActivity";
 import { ACTIVITY_TEMPLATES, CATEGORY_LABELS, ActivityCategory } from "@/data/activities";
 import { Activity, Routine } from "@/types/routine";
-import { saveRoutine } from "@/lib/storage";
+import { saveRoutine, getRoutines } from "@/lib/storage";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { Printer } from "lucide-react";
+
+const FIRST_ROUTINE_TIP_KEY = "hasSeenPdfTip";
 
 const CATEGORIES: ActivityCategory[] = ["morning", "hygiene", "meals", "play", "learning", "evening", "clothing"];
 
@@ -87,6 +90,11 @@ const CreateRoutine = () => {
       return;
     }
 
+    // Check if this is the user's first routine
+    const existingRoutines = getRoutines();
+    const isFirstRoutine = existingRoutines.length === 0;
+    const hasSeenTip = localStorage.getItem(FIRST_ROUTINE_TIP_KEY);
+
     const routine: Routine = {
       id: `routine-${Date.now()}`,
       name: routineName,
@@ -100,6 +108,26 @@ const CreateRoutine = () => {
 
     saveRoutine(routine);
     toast.success("Routine saved!");
+
+    // Show first-time PDF tip
+    if (isFirstRoutine && !hasSeenTip) {
+      localStorage.setItem(FIRST_ROUTINE_TIP_KEY, "true");
+      setTimeout(() => {
+        toast(
+          <div className="flex items-start gap-3">
+            <Printer className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+            <div>
+              <p className="font-semibold">Tip: Print your routine!</p>
+              <p className="text-sm text-muted-foreground">
+                Tap the printer icon to create a beautiful PDF for your child.
+              </p>
+            </div>
+          </div>,
+          { duration: 5000 }
+        );
+      }, 500);
+    }
+
     navigate("/");
   };
 
