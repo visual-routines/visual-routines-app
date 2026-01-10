@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import {
   Dialog,
   DialogContent,
@@ -20,6 +21,8 @@ export function GenderSelectDialog({
   onOpenChange,
   onSelect,
 }: GenderSelectDialogProps) {
+  const { t } = useTranslation();
+
   const handleSelect = (gender: GenderOption) => {
     onSelect(gender);
     onOpenChange(false);
@@ -29,9 +32,9 @@ export function GenderSelectDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[340px]">
         <DialogHeader>
-          <DialogTitle className="text-center text-xl">Choose Icon Style</DialogTitle>
+          <DialogTitle className="text-center text-xl">{t("gender.title")}</DialogTitle>
           <DialogDescription className="text-center">
-            Select which version of activity icons to use in the PDF
+            {t("gender.description")}
           </DialogDescription>
         </DialogHeader>
         <div className="grid grid-cols-3 gap-3 py-4">
@@ -41,7 +44,7 @@ export function GenderSelectDialog({
             onClick={() => handleSelect("boy")}
           >
             <span className="text-3xl">👦</span>
-            <span className="font-medium">Boy</span>
+            <span className="font-medium">{t("gender.boy")}</span>
           </Button>
           <Button
             variant="outline"
@@ -49,7 +52,7 @@ export function GenderSelectDialog({
             onClick={() => handleSelect("girl")}
           >
             <span className="text-3xl">👧</span>
-            <span className="font-medium">Girl</span>
+            <span className="font-medium">{t("gender.girl")}</span>
           </Button>
           <Button
             variant="outline"
@@ -57,7 +60,7 @@ export function GenderSelectDialog({
             onClick={() => handleSelect("neutral")}
           >
             <span className="text-3xl">🧒</span>
-            <span className="font-medium">Neutral</span>
+            <span className="font-medium">{t("gender.neutral")}</span>
           </Button>
         </div>
       </DialogContent>
