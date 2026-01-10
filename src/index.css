@@ -126,3 +126,36 @@
     padding-bottom: env(safe-area-inset-bottom);
   }
 }
+
+/* Accessibility modes */
+.large-text {
+  font-size: 1.125rem;
+}
+
+.large-text h1,
+.large-text h2,
+.large-text h3 {
+  font-size: 1.25em;
+}
+
+.large-text .text-xs {
+  font-size: 0.875rem;
+}
+
+.large-text .text-sm {
+  font-size: 1rem;
+}
+
+.high-contrast {
+  --foreground: 0 0% 0%;
+  --background: 0 0% 100%;
+  --muted-foreground: 0 0% 20%;
+  --border: 0 0% 0%;
+}
+
+.dark.high-contrast {
+  --foreground: 0 0% 100%;
+  --background: 0 0% 0%;
+  --muted-foreground: 0 0% 85%;
+  --border: 0 0% 100%;
+}

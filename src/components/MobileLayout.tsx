@@ -1,10 +1,9 @@
 import { ReactNode } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Home, Plus, Layout, Sun } from "lucide-react";
+import { Home, Plus, Layout, Settings, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AboutSheet } from "./AboutSheet";
-import { LanguageSwitcher } from "./LanguageSwitcher";
 
 interface MobileLayoutProps {
   children: ReactNode;
@@ -17,6 +16,7 @@ const NAV_ITEMS = [
   { path: "/", icon: Home, labelKey: "nav.home" },
   { path: "/create", icon: Plus, labelKey: "nav.create" },
   { path: "/templates", icon: Layout, labelKey: "nav.templates" },
+  { path: "/settings", icon: Settings, labelKey: "nav.settings" },
 ] as const;
 
 export function MobileLayout({ children, title, showBack, rightAction }: MobileLayoutProps) {
@@ -51,7 +51,6 @@ export function MobileLayout({ children, title, showBack, rightAction }: MobileL
           
           <div className="flex items-center gap-1">
             {rightAction}
-            {!showBack && <LanguageSwitcher />}
             {!showBack && <AboutSheet />}
           </div>
         </div>

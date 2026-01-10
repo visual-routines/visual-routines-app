@@ -5,7 +5,8 @@
   "nav": {
     "home": "Home",
     "create": "Create",
-    "templates": "Templates"
+    "templates": "Templates",
+    "settings": "Settings"
   },
   "greeting": {
     "morning": "Good morning!",
@@ -69,6 +70,37 @@
   "routineCard": {
     "min": "{{duration}} min",
     "activities": "{{count}} activities"
+  },
+  "settings": {
+    "title": "Settings",
+    "appearance": "Appearance",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "language": "Language",
+    "defaults": "Defaults",
+    "defaultGender": "PDF Icon Style",
+    "defaultDuration": "Activity Duration",
+    "min": "min",
+    "defaultAutoReset": "Daily Reset",
+    "accessibility": "Accessibility",
+    "largeText": "Larger Text",
+    "highContrast": "High Contrast",
+    "dataManagement": "Data Management",
+    "exportRoutines": "Export Routines",
+    "importRoutines": "Import Routines",
+    "clearAllRoutines": "Clear All Routines",
+    "clearConfirmTitle": "Delete all routines?",
+    "clearConfirmDescription": "This action cannot be undone. All your routines will be permanently deleted.",
+    "cancel": "Cancel",
+    "clearAll": "Delete All",
+    "allRoutinesCleared": "All routines deleted",
+    "exportSuccess": "Routines exported!",
+    "importSuccess": "Routines imported!",
+    "invalidFile": "Invalid file format",
+    "about": "About",
+    "version": "Version"
   },
   "about": {
     "title": "About Visual Routines",
