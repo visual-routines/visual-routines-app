@@ -42,6 +42,18 @@ jobs:
       - name: Sync Capacitor
         run: npx cap sync android
 
+      - name: Inject app version into Gradle
+        run: |
+          # Read version from src/lib/version.ts (single source of truth)
+          VERSION_NAME=$(grep 'VERSION_NAME' src/lib/version.ts | head -1 | sed 's/.*"\(.*\)".*/\1/')
+          VERSION_CODE=$(grep 'VERSION_CODE' src/lib/version.ts | head -1 | sed 's/[^0-9]*\([0-9]*\).*/\1/')
+          
+          echo "Building version: $VERSION_NAME (code: $VERSION_CODE)"
+          
+          # Update android/app/build.gradle with the version values
+          sed -i "s/versionCode [0-9]*/versionCode $VERSION_CODE/" android/app/build.gradle
+          sed -i "s/versionName \"[^\"]*\"/versionName \"$VERSION_NAME\"/" android/app/build.gradle
+
       - name: Work around Maven Central 403
         run: |
           # GitHub-hosted runners sometimes get 403s from repo.maven.apache.org (mavenCentral).

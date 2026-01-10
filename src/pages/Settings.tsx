@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { MobileLayout } from "@/components/MobileLayout";
 import { useSettings } from "@/hooks/useSettings";
 import { getRoutines } from "@/lib/storage";
+import { APP_VERSION } from "@/lib/version";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
@@ -332,7 +333,7 @@ export default function Settings() {
           <div className="bg-card rounded-2xl p-4 shadow-sm">
             <div className="text-center space-y-2">
               <p className="text-lg font-bold text-foreground">{t("app.name")}</p>
-              <p className="text-sm text-muted-foreground">{t("settings.version")} 1.0.0</p>
+              <p className="text-sm text-muted-foreground">{t("settings.version")} {APP_VERSION.display}</p>
               <p className="text-sm text-muted-foreground">{t("about.madeWith")}</p>
             </div>
           </div>
