@@ -116,8 +116,7 @@
     "title": "Choose Icon Style",
     "description": "Select the icon style for the PDF",
     "boy": "Boy",
-    "girl": "Girl",
-    "neutral": "Neutral"
+    "girl": "Girl"
   },
   "categories": {
     "morning": "Morning",
