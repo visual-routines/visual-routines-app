@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import {
   DndContext,
   closestCenter,
@@ -18,7 +19,7 @@ import {
 import { MobileLayout } from "@/components/MobileLayout";
 import { ActivityCard } from "@/components/ActivityCard";
 import { SortableActivity } from "@/components/SortableActivity";
-import { ACTIVITY_TEMPLATES, CATEGORY_LABELS, ActivityCategory } from "@/data/activities";
+import { ACTIVITY_TEMPLATES, ActivityCategory } from "@/data/activities";
 import { Activity, Routine } from "@/types/routine";
 import { saveRoutine, getRoutines } from "@/lib/storage";
 import { cn } from "@/lib/utils";
@@ -31,6 +32,7 @@ const CATEGORIES: ActivityCategory[] = ["morning", "hygiene", "meals", "play", "
 
 const CreateRoutine = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [routineName, setRoutineName] = useState("");
   const routineType = "custom" as const;
   const [activities, setActivities] = useState<Activity[]>([]);
@@ -49,17 +51,18 @@ const CreateRoutine = () => {
   );
 
   const addActivity = (template: typeof ACTIVITY_TEMPLATES[0]) => {
+    const activityName = t(`activities.${template.id}` as any) || template.name;
     const newActivity: Activity = {
       id: `${template.id}-${Date.now()}`,
       templateId: template.id,
-      name: template.name,
+      name: activityName,
       icon: template.icon,
       category: template.category,
       duration: template.defaultDuration,
       order: activities.length,
     };
     setActivities([...activities, newActivity]);
-    toast.success(`Added ${template.name}`);
+    toast.success(t("create.added", { name: activityName }));
   };
 
   const removeActivity = (id: string) => {
@@ -74,7 +77,6 @@ const CreateRoutine = () => {
         const oldIndex = items.findIndex((item) => item.id === active.id);
         const newIndex = items.findIndex((item) => item.id === over.id);
         const newItems = arrayMove(items, oldIndex, newIndex);
-        // Update order property
         return newItems.map((item, index) => ({ ...item, order: index }));
       });
     }
@@ -82,15 +84,14 @@ const CreateRoutine = () => {
 
   const handleSave = () => {
     if (!routineName.trim()) {
-      toast.error("Please enter a routine name");
+      toast.error(t("create.pleaseEnterName"));
       return;
     }
     if (activities.length === 0) {
-      toast.error("Add at least one activity");
+      toast.error(t("create.addAtLeastOne"));
       return;
     }
 
-    // Check if this is the user's first routine
     const existingRoutines = getRoutines();
     const isFirstRoutine = existingRoutines.length === 0;
     const hasSeenTip = localStorage.getItem(FIRST_ROUTINE_TIP_KEY);
@@ -107,9 +108,8 @@ const CreateRoutine = () => {
     };
 
     saveRoutine(routine);
-    toast.success("Routine saved!");
+    toast.success(t("create.routineSaved"));
 
-    // Show first-time PDF tip
     if (isFirstRoutine && !hasSeenTip) {
       localStorage.setItem(FIRST_ROUTINE_TIP_KEY, "true");
       setTimeout(() => {
@@ -117,9 +117,9 @@ const CreateRoutine = () => {
           <div className="flex items-start gap-3">
             <Printer className="w-5 h-5 text-primary mt-0.5 shrink-0" />
             <div>
-              <p className="font-semibold">Tip: Print your routine!</p>
+              <p className="font-semibold">{t("create.pdfTipTitle")}</p>
               <p className="text-sm text-muted-foreground">
-                Tap the printer icon to create a beautiful PDF for your child.
+                {t("create.pdfTipDescription")}
               </p>
             </div>
           </div>,
@@ -132,34 +132,33 @@ const CreateRoutine = () => {
   };
 
   const filteredTemplates = ACTIVITY_TEMPLATES.filter(
-    (t) => t.category === selectedCategory
+    (template) => template.category === selectedCategory
   );
 
   const totalDuration = activities.reduce((sum, a) => sum + a.duration, 0);
 
   return (
-    <MobileLayout title="Create Routine" showBack>
+    <MobileLayout title={t("create.title")} showBack>
       <div className="px-4 py-4 space-y-6">
         {/* Routine name */}
         <div>
           <label className="block text-sm font-semibold text-foreground mb-2">
-            Routine Name
+            {t("create.routineName")}
           </label>
           <input
             type="text"
             value={routineName}
             onChange={(e) => setRoutineName(e.target.value)}
-            placeholder="e.g., Morning Routine"
+            placeholder={t("create.namePlaceholder")}
             className="w-full px-4 py-3 rounded-xl bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
           />
         </div>
 
-
         {/* Recurring toggle */}
         <div className="flex items-center justify-between bg-card rounded-xl p-4 border border-border">
           <div>
-            <p className="font-semibold text-foreground">Daily Reset</p>
-            <p className="text-sm text-muted-foreground">Auto-reset progress each day</p>
+            <p className="font-semibold text-foreground">{t("create.dailyReset")}</p>
+            <p className="text-sm text-muted-foreground">{t("create.dailyResetDescription")}</p>
           </div>
           <button
             onClick={() => setRecurring(!recurring)}
@@ -182,14 +181,14 @@ const CreateRoutine = () => {
           <div>
             <div className="flex items-center justify-between mb-2">
               <label className="text-sm font-semibold text-foreground">
-                Activities ({activities.length})
+                {t("create.activities")} ({activities.length})
               </label>
               <span className="text-sm text-muted-foreground">
-                {totalDuration} min total
+                {t("create.minTotal", { duration: totalDuration })}
               </span>
             </div>
             <p className="text-xs text-muted-foreground mb-2">
-              Drag to reorder activities
+              {t("create.dragToReorder")}
             </p>
             <DndContext
               sensors={sensors}
@@ -217,7 +216,7 @@ const CreateRoutine = () => {
         {/* Activity picker */}
         <div>
           <label className="block text-sm font-semibold text-foreground mb-2">
-            Add Activities
+            {t("create.addActivities")}
           </label>
           
           {/* Category tabs */}
@@ -233,7 +232,7 @@ const CreateRoutine = () => {
                     : "bg-muted text-muted-foreground"
                 )}
               >
-                {CATEGORY_LABELS[cat]}
+                {t(`categories.${cat}`)}
               </button>
             ))}
           </div>
@@ -244,7 +243,7 @@ const CreateRoutine = () => {
               <ActivityCard
                 key={template.id}
                 id={template.id}
-                name={template.name}
+                name={t(`activities.${template.id}` as any) || template.name}
                 icon={template.icon}
                 category={template.category}
                 duration={template.defaultDuration}
@@ -261,7 +260,7 @@ const CreateRoutine = () => {
             onClick={handleSave}
             className="w-full py-4 bg-primary text-primary-foreground font-bold rounded-xl transition-all active:scale-98 shadow-playful"
           >
-            Save Routine
+            {t("create.saveRoutine")}
           </button>
         </div>
       </div>

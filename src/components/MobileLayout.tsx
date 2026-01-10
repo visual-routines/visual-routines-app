@@ -1,8 +1,10 @@
 import { ReactNode } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Home, Plus, Layout, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AboutSheet } from "./AboutSheet";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 interface MobileLayoutProps {
   children: ReactNode;
@@ -12,14 +14,15 @@ interface MobileLayoutProps {
 }
 
 const NAV_ITEMS = [
-  { path: "/", icon: Home, label: "Home" },
-  { path: "/create", icon: Plus, label: "Create" },
-  { path: "/templates", icon: Layout, label: "Templates" },
-];
+  { path: "/", icon: Home, labelKey: "nav.home" },
+  { path: "/create", icon: Plus, labelKey: "nav.create" },
+  { path: "/templates", icon: Layout, labelKey: "nav.templates" },
+] as const;
 
 export function MobileLayout({ children, title, showBack, rightAction }: MobileLayoutProps) {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation();
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
@@ -46,8 +49,9 @@ export function MobileLayout({ children, title, showBack, rightAction }: MobileL
             </h1>
           )}
           
-          <div className="flex items-center">
+          <div className="flex items-center gap-1">
             {rightAction}
+            {!showBack && <LanguageSwitcher />}
             {!showBack && <AboutSheet />}
           </div>
         </div>
@@ -61,7 +65,7 @@ export function MobileLayout({ children, title, showBack, rightAction }: MobileL
       {/* Bottom Navigation */}
       <nav className="fixed bottom-0 left-0 right-0 bg-card border-t border-border safe-bottom">
         <div className="flex items-center justify-around py-2">
-          {NAV_ITEMS.map(({ path, icon: Icon, label }) => {
+          {NAV_ITEMS.map(({ path, icon: Icon, labelKey }) => {
             const isActive = location.pathname === path;
             return (
               <button
@@ -75,7 +79,7 @@ export function MobileLayout({ children, title, showBack, rightAction }: MobileL
                 )}
               >
                 <Icon className="w-6 h-6" />
-                <span className="text-xs font-medium">{label}</span>
+                <span className="text-xs font-medium">{t(labelKey)}</span>
               </button>
             );
           })}

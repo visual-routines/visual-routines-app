@@ -1,25 +1,28 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { MobileLayout } from "@/components/MobileLayout";
 import { RoutineCard } from "@/components/RoutineCard";
 import { Routine } from "@/types/routine";
 import { getRoutines } from "@/lib/storage";
 import { Plus, Sparkles, Printer } from "lucide-react";
 
-const getGreeting = () => {
-  const hour = new Date().getHours();
-  if (hour >= 5 && hour < 12) {
-    return { text: "Good morning!", emoji: "☀️", subtitle: "Let's have a great day with your routines" };
-  } else if (hour >= 12 && hour < 17) {
-    return { text: "Good afternoon!", emoji: "🌤️", subtitle: "Keep up the great work with your routines" };
-  } else {
-    return { text: "Good evening!", emoji: "🌙", subtitle: "Wind down with your evening routines" };
-  }
-};
-
 const Index = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [routines, setRoutines] = useState<Routine[]>([]);
+
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour >= 5 && hour < 12) {
+      return { text: t("greeting.morning"), emoji: "☀️", subtitle: t("greeting.morningSubtitle") };
+    } else if (hour >= 12 && hour < 17) {
+      return { text: t("greeting.afternoon"), emoji: "🌤️", subtitle: t("greeting.afternoonSubtitle") };
+    } else {
+      return { text: t("greeting.evening"), emoji: "🌙", subtitle: t("greeting.eveningSubtitle") };
+    }
+  };
+
   const greeting = getGreeting();
 
   useEffect(() => {
@@ -49,8 +52,8 @@ const Index = () => {
               <Plus className="w-6 h-6 text-primary-foreground" />
             </div>
             <div className="text-left">
-              <p className="font-bold text-foreground">New Routine</p>
-              <p className="text-xs text-muted-foreground">Create custom</p>
+              <p className="font-bold text-foreground">{t("home.newRoutine")}</p>
+              <p className="text-xs text-muted-foreground">{t("home.createCustom")}</p>
             </div>
           </button>
 
@@ -62,8 +65,8 @@ const Index = () => {
               <Sparkles className="w-6 h-6 text-secondary-foreground" />
             </div>
             <div className="text-left">
-              <p className="font-bold text-foreground">Templates</p>
-              <p className="text-xs text-muted-foreground">Quick start</p>
+              <p className="font-bold text-foreground">{t("home.templates")}</p>
+              <p className="text-xs text-muted-foreground">{t("home.quickStart")}</p>
             </div>
           </button>
         </div>
@@ -71,7 +74,7 @@ const Index = () => {
         {/* Routines list */}
         <div>
           <h2 className="text-lg font-bold text-foreground mb-4">
-            Your Routines
+            {t("home.yourRoutines")}
           </h2>
 
           {routines.length === 0 ? (
@@ -80,20 +83,20 @@ const Index = () => {
                 <Sparkles className="w-10 h-10 text-muted-foreground" />
               </div>
               <h3 className="font-semibold text-foreground mb-2">
-                No routines yet
+                {t("home.noRoutinesYet")}
               </h3>
               <p className="text-sm text-muted-foreground mb-2">
-                Create visual routines your kids can follow
+                {t("home.createVisualRoutines")}
               </p>
               <p className="text-xs text-muted-foreground mb-4 flex items-center justify-center gap-1">
                 <Printer className="w-3.5 h-3.5" />
-                Print them as beautiful PDFs!
+                {t("home.printAsPdf")}
               </p>
               <button
                 onClick={() => navigate("/create")}
                 className="px-6 py-3 bg-primary text-primary-foreground font-semibold rounded-xl transition-all active:scale-95"
               >
-                Create Routine
+                {t("home.createRoutine")}
               </button>
             </div>
           ) : (

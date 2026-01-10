@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { MobileLayout } from "@/components/MobileLayout";
 import { ROUTINE_TEMPLATES } from "@/data/templates";
 import { ACTIVITY_ICONS, CATEGORY_COLORS } from "@/data/activities";
@@ -11,6 +12,7 @@ import { cn } from "@/lib/utils";
 
 const Templates = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [recurringState, setRecurringState] = useState<Record<string, boolean>>({});
 
   const toggleRecurring = (templateId: string) => {
@@ -22,6 +24,7 @@ const Templates = () => {
     if (!template) return;
 
     const isRecurring = recurringState[templateId] || false;
+    const templateName = t(`templateNames.${template.id}` as any);
 
     const activities: Activity[] = template.activities.map((a, index) => ({
       ...a,
@@ -30,7 +33,7 @@ const Templates = () => {
 
     const routine: Routine = {
       id: `routine-${Date.now()}`,
-      name: template.name,
+      name: templateName,
       type: template.type,
       activities,
       createdAt: new Date().toISOString(),
@@ -40,16 +43,16 @@ const Templates = () => {
     };
 
     saveRoutine(routine);
-    toast.success(`Created "${template.name}"!`);
+    toast.success(t("templates.created", { name: templateName }));
     navigate("/");
   };
 
   return (
     <MobileLayout>
       <div className="px-4 py-6">
-        <h1 className="text-2xl font-bold text-foreground mb-2">Templates</h1>
+        <h1 className="text-2xl font-bold text-foreground mb-2">{t("templates.title")}</h1>
         <p className="text-muted-foreground mb-6">
-          Quick-start with ready-made routines
+          {t("templates.subtitle")}
         </p>
 
         <div className="space-y-4">
@@ -58,6 +61,8 @@ const Templates = () => {
               (sum, a) => sum + a.duration,
               0
             );
+            const templateName = t(`templateNames.${template.id}` as any);
+            const templateDescription = t(`templateDescriptions.${template.id}` as any);
 
             return (
               <div
@@ -84,19 +89,19 @@ const Templates = () => {
                   </div>
                   <div className="flex-1">
                     <h3 className="font-bold text-lg text-foreground">
-                      {template.name}
+                      {templateName}
                     </h3>
                     <p className="text-sm text-muted-foreground">
-                      {template.description}
+                      {templateDescription}
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-2 mb-3 text-sm text-muted-foreground">
                   <Clock className="w-4 h-4" />
-                  <span>{totalDuration} min</span>
+                  <span>{t("templates.min", { duration: totalDuration })}</span>
                   <span className="mx-1">•</span>
-                  <span>{template.activities.length} activities</span>
+                  <span>{t("templates.activities", { count: template.activities.length })}</span>
                 </div>
 
                 {/* Activity preview */}
@@ -123,7 +128,7 @@ const Templates = () => {
                 <div className="flex items-center justify-between bg-background/50 rounded-xl p-3 mb-3">
                   <div className="flex items-center gap-2">
                     <RefreshCw className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm font-medium text-foreground">Daily Reset</span>
+                    <span className="text-sm font-medium text-foreground">{t("templates.dailyReset")}</span>
                   </div>
                   <button
                     onClick={() => toggleRecurring(template.id)}
@@ -145,7 +150,7 @@ const Templates = () => {
                   onClick={() => useTemplate(template.id)}
                   className="w-full py-3 bg-primary text-primary-foreground font-semibold rounded-xl transition-all active:scale-98"
                 >
-                  Use Template
+                  {t("templates.useTemplate")}
                 </button>
               </div>
             );
