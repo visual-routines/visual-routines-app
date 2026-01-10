@@ -1,9 +1,16 @@
 import { ReactNode } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Home, Plus, Layout, Settings, Sun } from "lucide-react";
+import { Home, Plus, Layout, MoreVertical, Settings, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AboutSheet } from "./AboutSheet";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
 
 interface MobileLayoutProps {
   children: ReactNode;
@@ -16,7 +23,6 @@ const NAV_ITEMS = [
   { path: "/", icon: Home, labelKey: "nav.home" },
   { path: "/create", icon: Plus, labelKey: "nav.create" },
   { path: "/templates", icon: Layout, labelKey: "nav.templates" },
-  { path: "/settings", icon: Settings, labelKey: "nav.settings" },
 ] as const;
 
 export function MobileLayout({ children, title, showBack, rightAction }: MobileLayoutProps) {
@@ -51,7 +57,24 @@ export function MobileLayout({ children, title, showBack, rightAction }: MobileL
           
           <div className="flex items-center gap-1">
             {rightAction}
-            {!showBack && <AboutSheet />}
+            {!showBack && (
+              <>
+                <AboutSheet />
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon" className="rounded-full">
+                      <MoreVertical className="w-5 h-5" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuItem onClick={() => navigate("/settings")}>
+                      <Settings className="w-4 h-4 mr-2" />
+                      {t("nav.settings")}
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </>
+            )}
           </div>
         </div>
       </header>
