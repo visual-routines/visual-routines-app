@@ -12,11 +12,11 @@
  */
 
 // User-visible version string (e.g., "1.0.0")
-export const VERSION_NAME = "1.0.0";
+export const VERSION_NAME = "1.1.0";
 
 // Android versionCode - must increment for each Google Play release
 // This is an integer that Google Play uses to determine update order
-export const VERSION_CODE = 1;
+export const VERSION_CODE = 2;
 
 // Combined version info for display
 export const APP_VERSION = {
