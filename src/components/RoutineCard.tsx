@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Routine } from "@/types/routine";
 import { ACTIVITY_ICONS, CATEGORY_COLORS } from "@/data/activities";
 import { cn } from "@/lib/utils";
@@ -13,6 +14,7 @@ interface RoutineCardProps {
 }
 
 export function RoutineCard({ routine, onClick }: RoutineCardProps) {
+  const { t } = useTranslation();
   const [showGenderDialog, setShowGenderDialog] = useState(false);
   
   const totalDuration = routine.activities.reduce((sum, a) => sum + a.duration, 0);
@@ -33,7 +35,7 @@ export function RoutineCard({ routine, onClick }: RoutineCardProps) {
   };
 
   const handleGenderSelect = async (gender: GenderOption) => {
-    const toastId = toast.loading("Generating PDF...");
+    const toastId = toast.loading(t("view.generatingPdf"));
     try {
       await exportRoutineToPdf(routine, {
         showCheckboxes: true,
@@ -42,10 +44,10 @@ export function RoutineCard({ routine, onClick }: RoutineCardProps) {
         gender,
       });
       toast.dismiss(toastId);
-      toast.success("PDF ready!", { duration: 2000 });
+      toast.success(t("view.pdfReady"), { duration: 2000 });
     } catch (error) {
       toast.dismiss(toastId);
-      toast.error("Failed to generate PDF");
+      toast.error(t("view.pdfFailed"));
       console.error("PDF export error:", error);
     }
   };
@@ -64,9 +66,9 @@ export function RoutineCard({ routine, onClick }: RoutineCardProps) {
             <h3 className="font-bold text-lg text-foreground">{routine.name}</h3>
             <div className="flex items-center gap-1 text-muted-foreground text-sm mt-1">
               <Clock className="w-4 h-4" />
-              <span>{totalDuration} min</span>
+              <span>{t("routineCard.min", { duration: totalDuration })}</span>
               <span className="mx-1">•</span>
-              <span>{routine.activities.length} activities</span>
+              <span>{t("routineCard.activities", { count: routine.activities.length })}</span>
             </div>
           </div>
           <div className="flex items-center gap-1">
