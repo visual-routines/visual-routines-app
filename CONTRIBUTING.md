@@ -141,12 +141,155 @@ export const ROUTINE_TEMPLATES: RoutineTemplate[] = [
 
 ---
 
+## Adding or Correcting Translations
+
+The app uses i18next for internationalization. Translation files are located in `src/i18n/locales/`.
+
+### Supported Languages
+
+| Code | Language        | File |
+|------|-----------------|------|
+| `en` | English         | `en.json` |
+| `es` | Español         | `es.json` |
+| `fr` | Français        | `fr.json` |
+| `nb` | Norsk Bokmål    | `nb.json` |
+| `mk` | Македонски      | `mk.json` |
+
+### Correcting Existing Translations
+
+1. Open the appropriate locale file in `src/i18n/locales/`
+2. Find the key you want to correct
+3. Update the translation value
+
+Example: Correcting a Spanish translation
+```json
+// In src/i18n/locales/es.json
+{
+  "home": {
+    "createRoutine": "Crear Rutina"  // Corrected value
+  }
+}
+```
+
+### Adding a New Language
+
+#### Step 1: Create the Locale File
+
+Copy an existing locale file (e.g., `en.json`) and rename it with the appropriate language code:
+
+```
+src/i18n/locales/de.json   // German
+src/i18n/locales/it.json   // Italian
+src/i18n/locales/pt.json   // Portuguese
+```
+
+#### Step 2: Translate All Keys
+
+Translate every string value in the file. The structure must remain identical to other locale files.
+
+Key sections to translate:
+- `app` - App name
+- `nav` - Navigation labels
+- `greeting` - Time-based greetings
+- `home` - Home screen text
+- `create` - Routine creation form
+- `view` - Routine viewing screen
+- `templates` - Templates page
+- `settings` - Settings page
+- `about` - About section
+- `gender` - Gender selection dialog
+- `categories` - Activity category names
+- `activities` - All activity names (90+ items)
+- `templateNames` - Template display names
+- `templateDescriptions` - Template descriptions
+
+#### Step 3: Register the Language
+
+Update `src/i18n/index.ts`:
+
+```typescript
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import en from './locales/en.json';
+import es from './locales/es.json';
+import fr from './locales/fr.json';
+import nb from './locales/nb.json';
+import mk from './locales/mk.json';
+import de from './locales/de.json';  // Add import
+
+i18n.use(initReactI18next).init({
+  resources: {
+    en: { translation: en },
+    es: { translation: es },
+    fr: { translation: fr },
+    nb: { translation: nb },
+    mk: { translation: mk },
+    de: { translation: de },  // Add resource
+  },
+  // ...
+});
+```
+
+#### Step 4: Add to Language Selector
+
+Update `src/pages/Settings.tsx` to include the new language option:
+
+```tsx
+<SelectContent>
+  <SelectItem value="en">English</SelectItem>
+  <SelectItem value="es">Español</SelectItem>
+  <SelectItem value="fr">Français</SelectItem>
+  <SelectItem value="nb">Norsk Bokmål</SelectItem>
+  <SelectItem value="mk">Македонски</SelectItem>
+  <SelectItem value="de">Deutsch</SelectItem>  {/* Add option */}
+</SelectContent>
+```
+
+### Translation Keys Reference
+
+| Section | Example Key | Description |
+|---------|-------------|-------------|
+| `nav.*` | `nav.home` | Navigation menu items |
+| `greeting.*` | `greeting.morning` | Time-based greetings |
+| `create.*` | `create.saveRoutine` | Routine creation UI |
+| `view.*` | `view.completed` | Routine viewing UI |
+| `settings.*` | `settings.theme` | Settings page UI |
+| `activities.*` | `activities.brush-teeth` | Activity display names |
+| `categories.*` | `categories.hygiene` | Category labels |
+
+### Using Translations in Code
+
+```tsx
+import { useTranslation } from "react-i18next";
+
+function MyComponent() {
+  const { t } = useTranslation();
+  
+  return (
+    <div>
+      <h1>{t("nav.home")}</h1>
+      <p>{t("create.minTotal", { duration: 15 })}</p>
+    </div>
+  );
+}
+```
+
+### Tips for Quality Translations
+
+1. **Keep it kid-friendly**: Use simple, friendly language appropriate for children
+2. **Match context**: Consider where the text appears (buttons should be short, descriptions can be longer)
+3. **Test in-app**: Always test translations in the actual app to check layout and context
+4. **Preserve placeholders**: Keep `{{variable}}` placeholders intact (e.g., `{{duration}} min`)
+
+---
+
 ## Testing Your Changes
 
 1. Run the app locally: `npm run dev`
 2. Navigate to "Create Routine" to see new activities
 3. Navigate to "Templates" to see new templates
-4. Try adding activities to a routine to ensure they work
+4. Navigate to "Settings" to test language switching
+5. Try adding activities to a routine to ensure they work
 
 ---
 
@@ -159,3 +302,5 @@ export const ROUTINE_TEMPLATES: RoutineTemplate[] = [
 | `src/data/activityIcons.ts` | PNG icon mappings |
 | `src/assets/activity-icons/` | Custom PNG icons |
 | `src/types/routine.ts` | TypeScript interfaces |
+| `src/i18n/index.ts` | i18next configuration |
+| `src/i18n/locales/*.json` | Translation files |
