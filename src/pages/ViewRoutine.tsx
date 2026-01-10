@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { MobileLayout } from "@/components/MobileLayout";
 import { RoutineActivityItem } from "@/components/RoutineActivityItem";
 import { GenderSelectDialog, GenderOption } from "@/components/GenderSelectDialog";
@@ -13,6 +14,7 @@ import { exportRoutineToPdf } from "@/lib/pdfExport";
 const ViewRoutine = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [routine, setRoutine] = useState<Routine | null>(null);
   const [showGenderDialog, setShowGenderDialog] = useState(false);
 
@@ -20,7 +22,6 @@ const ViewRoutine = () => {
     if (id) {
       const found = getRoutineById(id);
       if (found) {
-        // Check if recurring routine needs auto-reset
         const checkedRoutine = checkAndResetRecurringRoutine(found);
         setRoutine(checkedRoutine);
       } else {
@@ -49,13 +50,13 @@ const ViewRoutine = () => {
     };
     setRoutine(updated);
     saveRoutine(updated);
-    toast.success("Progress reset!");
+    toast.success(t("view.progressReset"));
   };
 
   const handleDelete = () => {
-    if (confirm("Delete this routine?")) {
+    if (confirm(t("view.deleteConfirm"))) {
       deleteRoutine(routine.id);
-      toast.success("Routine deleted");
+      toast.success(t("view.routineDeleted"));
       navigate("/");
     }
   };
@@ -65,7 +66,7 @@ const ViewRoutine = () => {
   };
 
   const handleGenderSelect = async (gender: GenderOption) => {
-    const toastId = toast.loading("Generating PDF...");
+    const toastId = toast.loading(t("view.generatingPdf"));
     try {
       await exportRoutineToPdf(routine, {
         showCheckboxes: true,
@@ -74,10 +75,10 @@ const ViewRoutine = () => {
         gender,
       });
       toast.dismiss(toastId);
-      toast.success("PDF ready!", { duration: 2000 });
+      toast.success(t("view.pdfReady"), { duration: 2000 });
     } catch (error) {
       toast.dismiss(toastId);
-      toast.error("Failed to generate PDF");
+      toast.error(t("view.pdfFailed"));
       console.error("PDF export error:", error);
     }
   };
@@ -118,7 +119,7 @@ const ViewRoutine = () => {
               <p className="text-2xl font-bold text-foreground">
                 {completedCount}/{routine.activities.length}
               </p>
-              <p className="text-sm text-muted-foreground">completed</p>
+              <p className="text-sm text-muted-foreground">{t("view.completed")}</p>
             </div>
             <div className="flex items-center gap-2 text-muted-foreground">
               <Clock className="w-4 h-4" />
@@ -129,7 +130,7 @@ const ViewRoutine = () => {
           {routine.recurring && (
             <div className="flex items-center gap-2 mb-3 text-sm text-primary">
               <RefreshCw className="w-4 h-4" />
-              <span>Daily reset enabled</span>
+              <span>{t("view.dailyResetEnabled")}</span>
             </div>
           )}
 
@@ -144,7 +145,7 @@ const ViewRoutine = () => {
           {progress === 100 && (
             <div className="text-center py-2">
               <span className="text-2xl">🎉</span>
-              <p className="font-bold text-foreground">All done! Great job!</p>
+              <p className="font-bold text-foreground">{t("view.allDone")}</p>
             </div>
           )}
 
@@ -154,14 +155,14 @@ const ViewRoutine = () => {
               className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               <RotateCcw className="w-4 h-4" />
-              Reset progress
+              {t("view.resetProgress")}
             </button>
           )}
         </div>
 
         {/* Activities list */}
         <div>
-          <h2 className="text-lg font-bold text-foreground mb-3">Activities</h2>
+          <h2 className="text-lg font-bold text-foreground mb-3">{t("view.activities")}</h2>
           <div className="space-y-2">
             {routine.activities.map((activity) => (
               <RoutineActivityItem

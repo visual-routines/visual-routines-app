@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import {
   Drawer,
   DrawerContent,
@@ -12,6 +13,8 @@ interface AboutSheetProps {
 }
 
 export function AboutSheet({ trigger }: AboutSheetProps) {
+  const { t } = useTranslation();
+
   return (
     <Drawer>
       <DrawerTrigger asChild>
@@ -23,29 +26,21 @@ export function AboutSheet({ trigger }: AboutSheetProps) {
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="text-left">
-          <DrawerTitle className="text-xl">About Visual Routines</DrawerTitle>
+          <DrawerTitle className="text-xl">{t("about.title")}</DrawerTitle>
         </DrawerHeader>
         <div className="px-4 pb-8 space-y-4">
           <p className="text-muted-foreground">
-           Executive functions are cognitive processes that help us plan, 
-           focus attention, remember instructions, and manage multiple tasks 
-           successfully. For children, especially those with autism or ADHD, 
-           these skills can be challenging. Visual routines—such as step-by-step 
-           picture schedules or illustrated checklists—support executive
-           functioning by providing clear, predictable guidance. They reduce 
-           cognitive load, help with task initiation and completion, and promote 
-           independence by making abstract concepts like time, order, 
-           and priorities more concrete and accessible.
+            {t("about.description")}
           </p>
           <div className="space-y-2 text-sm text-muted-foreground">
-            <p>✓ Visual activity cards kids can understand</p>
-            <p>✓ Explore templates to get started</p>
-            <p>✓ Daily auto-reset for recurring routines</p>
-            <p>✓ Export routines as printable PDFs</p>
-            <p>✓ Works offline on any device</p>
+            <p>✓ {t("about.feature1")}</p>
+            <p>✓ {t("about.feature2")}</p>
+            <p>✓ {t("about.feature3")}</p>
+            <p>✓ {t("about.feature4")}</p>
+            <p>✓ {t("about.feature5")}</p>
           </div>
           <p className="text-xs text-muted-foreground/60 pt-4">
-            Made with ❤️ for parents and kids
+            {t("about.madeWith")}
           </p>
         </div>
       </DrawerContent>
