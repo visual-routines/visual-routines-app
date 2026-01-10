@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import CreateRoutine from "./pages/CreateRoutine";
 import ViewRoutine from "./pages/ViewRoutine";
 import Templates from "./pages/Templates";
+import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/create" element={<CreateRoutine />} />
           <Route path="/routine/:id" element={<ViewRoutine />} />
           <Route path="/templates" element={<Templates />} />
+          <Route path="/settings" element={<Settings />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

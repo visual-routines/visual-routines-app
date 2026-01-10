@@ -5,7 +5,8 @@
   "nav": {
     "home": "Inicio",
     "create": "Crear",
-    "templates": "Plantillas"
+    "templates": "Plantillas",
+    "settings": "Ajustes"
   },
   "greeting": {
     "morning": "¡Buenos días!",
@@ -69,6 +70,37 @@
   "routineCard": {
     "min": "{{duration}} min",
     "activities": "{{count}} actividades"
+  },
+  "settings": {
+    "title": "Ajustes",
+    "appearance": "Apariencia",
+    "theme": "Tema",
+    "light": "Claro",
+    "dark": "Oscuro",
+    "system": "Sistema",
+    "language": "Idioma",
+    "defaults": "Predeterminados",
+    "defaultGender": "Estilo de Iconos PDF",
+    "defaultDuration": "Duración de Actividad",
+    "min": "min",
+    "defaultAutoReset": "Reinicio Diario",
+    "accessibility": "Accesibilidad",
+    "largeText": "Texto Grande",
+    "highContrast": "Alto Contraste",
+    "dataManagement": "Gestión de Datos",
+    "exportRoutines": "Exportar Rutinas",
+    "importRoutines": "Importar Rutinas",
+    "clearAllRoutines": "Borrar Todas las Rutinas",
+    "clearConfirmTitle": "¿Eliminar todas las rutinas?",
+    "clearConfirmDescription": "Esta acción no se puede deshacer. Todas tus rutinas serán eliminadas permanentemente.",
+    "cancel": "Cancelar",
+    "clearAll": "Eliminar Todo",
+    "allRoutinesCleared": "Todas las rutinas eliminadas",
+    "exportSuccess": "¡Rutinas exportadas!",
+    "importSuccess": "¡Rutinas importadas!",
+    "invalidFile": "Formato de archivo inválido",
+    "about": "Acerca de",
+    "version": "Versión"
   },
   "about": {
     "title": "Acerca de Rutinas Visuales",
