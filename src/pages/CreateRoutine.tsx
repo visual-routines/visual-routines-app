@@ -29,7 +29,7 @@ const CATEGORIES: ActivityCategory[] = ["morning", "hygiene", "meals", "play", "
 const CreateRoutine = () => {
   const navigate = useNavigate();
   const [routineName, setRoutineName] = useState("");
-  const [routineType, setRoutineType] = useState<"morning" | "evening" | "custom">("morning");
+  const routineType = "custom" as const;
   const [activities, setActivities] = useState<Activity[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<ActivityCategory>("morning");
   const [recurring, setRecurring] = useState(false);
@@ -126,28 +126,6 @@ const CreateRoutine = () => {
           />
         </div>
 
-        {/* Routine type */}
-        <div>
-          <label className="block text-sm font-semibold text-foreground mb-2">
-            Type
-          </label>
-          <div className="flex gap-2">
-            {(["morning", "evening", "custom"] as const).map((type) => (
-              <button
-                key={type}
-                onClick={() => setRoutineType(type)}
-                className={cn(
-                  "flex-1 py-2 px-3 rounded-xl font-medium capitalize transition-all",
-                  routineType === type
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-muted text-muted-foreground"
-                )}
-              >
-                {type}
-              </button>
-            ))}
-          </div>
-        </div>
 
         {/* Recurring toggle */}
         <div className="flex items-center justify-between bg-card rounded-xl p-4 border border-border">
