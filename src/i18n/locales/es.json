@@ -116,8 +116,7 @@
     "title": "Elegir Estilo de Iconos",
     "description": "Selecciona el estilo de iconos para el PDF",
     "boy": "Niño",
-    "girl": "Niña",
-    "neutral": "Neutral"
+    "girl": "Niña"
   },
   "categories": {
     "morning": "Mañana",

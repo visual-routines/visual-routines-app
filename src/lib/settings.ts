@@ -1,4 +1,4 @@
-export type GenderPreference = "boy" | "girl" | "neutral";
+export type GenderPreference = "boy" | "girl";
 
 export interface AppSettings {
   theme: "light" | "dark" | "system";
@@ -13,7 +13,7 @@ const SETTINGS_KEY = "app-settings";
 
 const DEFAULT_SETTINGS: AppSettings = {
   theme: "light",
-  defaultGender: "neutral",
+  defaultGender: "boy",
   defaultDuration: 5,
   defaultAutoReset: true,
   largeText: false,

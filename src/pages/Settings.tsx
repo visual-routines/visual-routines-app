@@ -102,7 +102,6 @@ export default function Settings() {
   const genderOptions: { value: GenderPreference; emoji: string; labelKey: string }[] = [
     { value: "boy", emoji: "👦", labelKey: "gender.boy" },
     { value: "girl", emoji: "👧", labelKey: "gender.girl" },
-    { value: "neutral", emoji: "🧒", labelKey: "gender.neutral" },
   ];
 
   const durationOptions = [1, 2, 3, 5, 10, 15];
@@ -145,12 +144,15 @@ export default function Settings() {
                 value={i18n.language}
                 onValueChange={(value) => i18n.changeLanguage(value)}
               >
-                <SelectTrigger className="w-32">
+                <SelectTrigger className="w-40">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="en">English</SelectItem>
                   <SelectItem value="es">Español</SelectItem>
+                  <SelectItem value="fr">Français</SelectItem>
+                  <SelectItem value="nb">Norsk Bokmål</SelectItem>
+                  <SelectItem value="mk">Македонски</SelectItem>
                 </SelectContent>
               </Select>
             </div>

@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
-export type GenderOption = "boy" | "girl" | "neutral";
+export type GenderOption = "boy" | "girl";
 
 interface GenderSelectDialogProps {
   open: boolean;
@@ -37,30 +37,22 @@ export function GenderSelectDialog({
             {t("gender.description")}
           </DialogDescription>
         </DialogHeader>
-        <div className="grid grid-cols-3 gap-3 py-4">
+        <div className="grid grid-cols-2 gap-4 py-4">
           <Button
             variant="outline"
-            className="flex flex-col items-center gap-2 h-auto py-4 hover:bg-blue-50 hover:border-blue-300"
+            className="flex flex-col items-center gap-2 h-auto py-6 hover:bg-blue-50 hover:border-blue-300"
             onClick={() => handleSelect("boy")}
           >
-            <span className="text-3xl">👦</span>
+            <span className="text-4xl">👦</span>
             <span className="font-medium">{t("gender.boy")}</span>
           </Button>
           <Button
             variant="outline"
-            className="flex flex-col items-center gap-2 h-auto py-4 hover:bg-pink-50 hover:border-pink-300"
+            className="flex flex-col items-center gap-2 h-auto py-6 hover:bg-pink-50 hover:border-pink-300"
             onClick={() => handleSelect("girl")}
           >
-            <span className="text-3xl">👧</span>
+            <span className="text-4xl">👧</span>
             <span className="font-medium">{t("gender.girl")}</span>
-          </Button>
-          <Button
-            variant="outline"
-            className="flex flex-col items-center gap-2 h-auto py-4 hover:bg-gray-50 hover:border-gray-300"
-            onClick={() => handleSelect("neutral")}
-          >
-            <span className="text-3xl">🧒</span>
-            <span className="font-medium">{t("gender.neutral")}</span>
           </Button>
         </div>
       </DialogContent>
