@@ -5,6 +5,21 @@ All notable changes to Visual Routines will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.0] - 2026-01-11
+
+### Added
+- Adjustable activity durations with +/- controls in routine builder
+- Auto-save draft feature for routine creation (drafts persist when navigating away)
+- Edit existing routines functionality (accessible from routine view page)
+
+### Changed
+- Total duration updates dynamically when adjusting individual activity times
+
+## [1.3.0] - 2026-01-11
+
+### Changed
+- Reorganized README.md for general audience, moved technical docs to DEVELOPMENT.md
+
 ## [1.1.0] - 2026-01-10
 
 ### Added
