@@ -7,7 +7,7 @@ import { GenderSelectDialog, GenderOption } from "@/components/GenderSelectDialo
 import { Routine } from "@/types/routine";
 import { getRoutineById, saveRoutine, deleteRoutine } from "@/lib/storage";
 import { checkAndResetRecurringRoutine } from "@/lib/routineReset";
-import { Trash2, RotateCcw, Clock, Download, RefreshCw, Pencil } from "lucide-react";
+import { Trash2, RotateCcw, Clock, Printer, RefreshCw, Pencil } from "lucide-react";
 import { toast } from "sonner";
 import { exportRoutineToPdf } from "@/lib/pdfExport";
 
@@ -105,9 +105,9 @@ const ViewRoutine = () => {
           <button
             onClick={handleExportClick}
             className="p-2 text-primary hover:bg-primary/10 rounded-lg"
-            title="Export as PDF"
+            title="Print as PDF"
           >
-            <Download className="w-5 h-5" />
+            <Printer className="w-5 h-5" />
           </button>
           <button
             onClick={handleDelete}
