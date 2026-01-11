@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   DndContext,
@@ -21,7 +21,7 @@ import { ActivityCard } from "@/components/ActivityCard";
 import { SortableActivity } from "@/components/SortableActivity";
 import { ACTIVITY_TEMPLATES, ActivityCategory } from "@/data/activities";
 import { Activity, Routine } from "@/types/routine";
-import { saveRoutine, getRoutines, saveDraft, getDraft, clearDraft } from "@/lib/storage";
+import { saveRoutine, getRoutines, getRoutineById, saveDraft, getDraft, clearDraft } from "@/lib/storage";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { Printer } from "lucide-react";
@@ -32,6 +32,7 @@ const CATEGORIES: ActivityCategory[] = ["morning", "hygiene", "meals", "play", "
 
 const CreateRoutine = () => {
   const navigate = useNavigate();
+  const { id: editId } = useParams<{ id: string }>();
   const { t } = useTranslation();
   const [routineName, setRoutineName] = useState("");
   const routineType = "custom" as const;
@@ -39,32 +40,51 @@ const CreateRoutine = () => {
   const [selectedCategory, setSelectedCategory] = useState<ActivityCategory>("morning");
   const [recurring, setRecurring] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
+  const [existingRoutine, setExistingRoutine] = useState<Routine | null>(null);
 
-  // Load draft on mount
+  const isEditMode = Boolean(editId);
+
+  // Load existing routine for edit mode OR draft for create mode
   useEffect(() => {
-    const draft = getDraft();
-    if (draft) {
-      setRoutineName(draft.name);
-      setActivities(draft.activities);
-      setRecurring(draft.recurring);
-      if (draft.name || draft.activities.length > 0) {
-        toast.info(t("create.draftRestored"));
+    if (editId) {
+      // Edit mode: load existing routine
+      const routine = getRoutineById(editId);
+      if (routine) {
+        setExistingRoutine(routine);
+        setRoutineName(routine.name);
+        setActivities(routine.activities);
+        setRecurring(routine.recurring || false);
+      } else {
+        toast.error(t("edit.routineNotFound"));
+        navigate("/");
+        return;
+      }
+    } else {
+      // Create mode: load draft
+      const draft = getDraft();
+      if (draft) {
+        setRoutineName(draft.name);
+        setActivities(draft.activities);
+        setRecurring(draft.recurring);
+        if (draft.name || draft.activities.length > 0) {
+          toast.info(t("create.draftRestored"));
+        }
       }
     }
     setIsInitialized(true);
-  }, [t]);
+  }, [editId, navigate, t]);
 
-  // Auto-save draft when state changes
+  // Auto-save draft when state changes (only in create mode)
   const saveDraftDebounced = useCallback(() => {
-    if (!isInitialized) return;
+    if (!isInitialized || isEditMode) return;
     saveDraft({ name: routineName, activities, recurring, updatedAt: new Date().toISOString() });
-  }, [routineName, activities, recurring, isInitialized]);
+  }, [routineName, activities, recurring, isInitialized, isEditMode]);
 
   useEffect(() => {
-    if (!isInitialized) return;
+    if (!isInitialized || isEditMode) return;
     const timer = setTimeout(saveDraftDebounced, 500);
     return () => clearTimeout(timer);
-  }, [saveDraftDebounced, isInitialized]);
+  }, [saveDraftDebounced, isInitialized, isEditMode]);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -119,44 +139,60 @@ const CreateRoutine = () => {
       return;
     }
 
-    const existingRoutines = getRoutines();
-    const isFirstRoutine = existingRoutines.length === 0;
-    const hasSeenTip = localStorage.getItem(FIRST_ROUTINE_TIP_KEY);
+    if (isEditMode && existingRoutine) {
+      // Update existing routine
+      const updatedRoutine: Routine = {
+        ...existingRoutine,
+        name: routineName,
+        activities,
+        recurring,
+        updatedAt: new Date().toISOString(),
+        lastResetDate: recurring ? (existingRoutine.lastResetDate || new Date().toISOString().split("T")[0]) : undefined,
+      };
+      saveRoutine(updatedRoutine);
+      toast.success(t("edit.routineUpdated"));
+      navigate(`/routine/${editId}`);
+    } else {
+      // Create new routine
+      const existingRoutines = getRoutines();
+      const isFirstRoutine = existingRoutines.length === 0;
+      const hasSeenTip = localStorage.getItem(FIRST_ROUTINE_TIP_KEY);
 
-    const routine: Routine = {
-      id: `routine-${Date.now()}`,
-      name: routineName,
-      type: routineType,
-      activities,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      recurring,
-      lastResetDate: recurring ? new Date().toISOString().split("T")[0] : undefined,
-    };
+      const routine: Routine = {
+        id: `routine-${Date.now()}`,
+        name: routineName,
+        type: routineType,
+        activities,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        recurring,
+        lastResetDate: recurring ? new Date().toISOString().split("T")[0] : undefined,
+      };
 
-    saveRoutine(routine);
-    clearDraft();
-    toast.success(t("create.routineSaved"));
+      saveRoutine(routine);
+      clearDraft();
+      toast.success(t("create.routineSaved"));
 
-    if (isFirstRoutine && !hasSeenTip) {
-      localStorage.setItem(FIRST_ROUTINE_TIP_KEY, "true");
-      setTimeout(() => {
-        toast(
-          <div className="flex items-start gap-3">
-            <Printer className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-            <div>
-              <p className="font-semibold">{t("create.pdfTipTitle")}</p>
-              <p className="text-sm text-muted-foreground">
-                {t("create.pdfTipDescription")}
-              </p>
-            </div>
-          </div>,
-          { duration: 5000 }
-        );
-      }, 500);
+      if (isFirstRoutine && !hasSeenTip) {
+        localStorage.setItem(FIRST_ROUTINE_TIP_KEY, "true");
+        setTimeout(() => {
+          toast(
+            <div className="flex items-start gap-3">
+              <Printer className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+              <div>
+                <p className="font-semibold">{t("create.pdfTipTitle")}</p>
+                <p className="text-sm text-muted-foreground">
+                  {t("create.pdfTipDescription")}
+                </p>
+              </div>
+            </div>,
+            { duration: 5000 }
+          );
+        }, 500);
+      }
+
+      navigate("/");
     }
-
-    navigate("/");
   };
 
   const filteredTemplates = ACTIVITY_TEMPLATES.filter(
@@ -166,7 +202,7 @@ const CreateRoutine = () => {
   const totalDuration = activities.reduce((sum, a) => sum + a.duration, 0);
 
   return (
-    <MobileLayout title={t("create.title")} showBack>
+    <MobileLayout title={isEditMode ? t("edit.title") : t("create.title")} showBack>
       <div className="px-4 py-4 space-y-6">
         {/* Routine name */}
         <div>
@@ -288,7 +324,7 @@ const CreateRoutine = () => {
             onClick={handleSave}
             className="w-full py-4 bg-primary text-primary-foreground font-bold rounded-xl transition-all active:scale-98 shadow-playful"
           >
-            {t("create.saveRoutine")}
+            {isEditMode ? t("edit.saveChanges") : t("create.saveRoutine")}
           </button>
         </div>
       </div>
