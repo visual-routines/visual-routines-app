@@ -1,10 +1,8 @@
 name: Build Android APK
 
 on:
-  #push:
-  #branches: [main]
-  #pull_request:
-  #branches: [main]
+  release:
+    types: [published]
   workflow_dispatch:
 
 jobs:
@@ -47,9 +45,9 @@ jobs:
           # Read version from src/lib/version.ts (single source of truth)
           VERSION_NAME=$(grep 'VERSION_NAME' src/lib/version.ts | head -1 | sed 's/.*"\(.*\)".*/\1/')
           VERSION_CODE=$(grep 'VERSION_CODE' src/lib/version.ts | head -1 | sed 's/[^0-9]*\([0-9]*\).*/\1/')
-          
+
           echo "Building version: $VERSION_NAME (code: $VERSION_CODE)"
-          
+
           # Update android/app/build.gradle with the version values
           sed -i "s/versionCode [0-9]*/versionCode $VERSION_CODE/" android/app/build.gradle
           sed -i "s/versionName \"[^\"]*\"/versionName \"$VERSION_NAME\"/" android/app/build.gradle
@@ -60,7 +58,6 @@ jobs:
           # Replace mavenCentral() with the repo1.maven.org endpoint to make dependency downloads reliable.
           sed -i 's/mavenCentral()/maven { url "https:\/\/repo1.maven.org\/maven2" }/g' android/build.gradle
           sed -i 's/mavenCentral()/maven { url "https:\/\/repo1.maven.org\/maven2" }/g' android/settings.gradle || true
-
 
       - name: Copy app icon to Android resources
         run: |
