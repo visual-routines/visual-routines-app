@@ -46,6 +46,12 @@
     "pdfTipTitle": "Tip: Print your routine!",
     "pdfTipDescription": "Tap the printer icon to create a beautiful PDF for your child."
   },
+  "edit": {
+    "title": "Edit Routine",
+    "saveChanges": "Save Changes",
+    "routineUpdated": "Routine updated!",
+    "routineNotFound": "Routine not found"
+  },
   "view": {
     "completed": "completed",
     "dailyResetEnabled": "Daily reset enabled",

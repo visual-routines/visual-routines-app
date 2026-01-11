@@ -21,6 +21,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/create" element={<CreateRoutine />} />
+          <Route path="/edit/:id" element={<CreateRoutine />} />
           <Route path="/routine/:id" element={<ViewRoutine />} />
           <Route path="/templates" element={<Templates />} />
           <Route path="/settings" element={<Settings />} />
