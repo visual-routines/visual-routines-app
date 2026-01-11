@@ -1,14 +1,16 @@
 import { Activity } from "@/types/routine";
 import { ACTIVITY_ICONS, CATEGORY_COLORS } from "@/data/activities";
 import { cn } from "@/lib/utils";
-import { GripVertical, Trash2, Check } from "lucide-react";
+import { GripVertical, Trash2, Check, Minus, Plus } from "lucide-react";
 
 interface RoutineActivityItemProps {
   activity: Activity;
   onRemove?: () => void;
   onComplete?: () => void;
+  onDurationChange?: (newDuration: number) => void;
   isDragging?: boolean;
   showControls?: boolean;
+  showDurationControls?: boolean;
   isViewMode?: boolean;
 }
 
@@ -16,11 +18,25 @@ export function RoutineActivityItem({
   activity,
   onRemove,
   onComplete,
+  onDurationChange,
   isDragging,
   showControls = true,
+  showDurationControls = false,
   isViewMode = false,
 }: RoutineActivityItemProps) {
   const IconComponent = ACTIVITY_ICONS[activity.icon];
+
+  const handleDecrease = () => {
+    if (activity.duration > 1 && onDurationChange) {
+      onDurationChange(activity.duration - 1);
+    }
+  };
+
+  const handleIncrease = () => {
+    if (onDurationChange) {
+      onDurationChange(activity.duration + 1);
+    }
+  };
 
   return (
     <div
@@ -66,7 +82,28 @@ export function RoutineActivityItem({
         )}>
           {activity.name}
         </p>
-        <p className="text-xs text-muted-foreground">{activity.duration} min</p>
+        {showDurationControls && onDurationChange ? (
+          <div className="flex items-center gap-2 mt-1">
+            <button
+              onClick={handleDecrease}
+              disabled={activity.duration <= 1}
+              className="w-6 h-6 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+            >
+              <Minus className="w-3 h-3" />
+            </button>
+            <span className="text-sm font-medium text-foreground min-w-[3rem] text-center">
+              {activity.duration} min
+            </span>
+            <button
+              onClick={handleIncrease}
+              className="w-6 h-6 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-colors"
+            >
+              <Plus className="w-3 h-3" />
+            </button>
+          </div>
+        ) : (
+          <p className="text-xs text-muted-foreground">{activity.duration} min</p>
+        )}
       </div>
 
       {showControls && !isViewMode && onRemove && (
