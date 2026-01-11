@@ -233,7 +233,7 @@ const CreateRoutine = () => {
           <button
             onClick={() => setRecurring(!recurring)}
             className={cn(
-              "w-12 h-7 rounded-full transition-colors relative",
+              "w-12 h-7 rounded-full transition-colors relative shrink-0",
               recurring ? "bg-primary" : "bg-muted"
             )}
           >
