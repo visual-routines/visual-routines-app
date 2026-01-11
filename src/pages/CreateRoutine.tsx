@@ -116,6 +116,12 @@ const CreateRoutine = () => {
     setActivities(activities.filter((a) => a.id !== id));
   };
 
+  const updateActivityDuration = (id: string, newDuration: number) => {
+    setActivities(activities.map((a) => 
+      a.id === id ? { ...a, duration: newDuration } : a
+    ));
+  };
+
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
@@ -269,6 +275,7 @@ const CreateRoutine = () => {
                       key={activity.id}
                       activity={activity}
                       onRemove={() => removeActivity(activity.id)}
+                      onDurationChange={(newDuration) => updateActivityDuration(activity.id, newDuration)}
                     />
                   ))}
                 </div>

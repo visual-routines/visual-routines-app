@@ -7,9 +7,10 @@ import { GripVertical } from "lucide-react";
 interface SortableActivityProps {
   activity: Activity;
   onRemove: () => void;
+  onDurationChange: (newDuration: number) => void;
 }
 
-export const SortableActivity = ({ activity, onRemove }: SortableActivityProps) => {
+export const SortableActivity = ({ activity, onRemove, onDurationChange }: SortableActivityProps) => {
   const {
     attributes,
     listeners,
@@ -37,7 +38,12 @@ export const SortableActivity = ({ activity, onRemove }: SortableActivityProps) 
           <GripVertical className="w-5 h-5" />
         </button>
         <div className="flex-1">
-          <RoutineActivityItem activity={activity} onRemove={onRemove} />
+          <RoutineActivityItem 
+            activity={activity} 
+            onRemove={onRemove}
+            onDurationChange={onDurationChange}
+            showDurationControls
+          />
         </div>
       </div>
     </div>
