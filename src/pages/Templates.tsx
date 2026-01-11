@@ -133,7 +133,7 @@ const Templates = () => {
                   <button
                     onClick={() => toggleRecurring(template.id)}
                     className={cn(
-                      "w-10 h-6 rounded-full transition-colors relative",
+                      "w-10 h-6 rounded-full transition-colors relative shrink-0",
                       recurringState[template.id] ? "bg-primary" : "bg-muted"
                     )}
                   >
