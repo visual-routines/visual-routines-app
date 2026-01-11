@@ -1,6 +1,14 @@
-import { Routine } from "@/types/routine";
+import { Routine, Activity } from "@/types/routine";
 
 const STORAGE_KEY = "kids-routines";
+const DRAFT_KEY = "routine-draft";
+
+export interface RoutineDraft {
+  name: string;
+  activities: Activity[];
+  recurring: boolean;
+  updatedAt: string;
+}
 
 export const getRoutines = (): Routine[] => {
   try {
@@ -31,4 +39,22 @@ export const deleteRoutine = (id: string): void => {
 
 export const getRoutineById = (id: string): Routine | undefined => {
   return getRoutines().find((r) => r.id === id);
+};
+
+// Draft management
+export const saveDraft = (draft: RoutineDraft): void => {
+  localStorage.setItem(DRAFT_KEY, JSON.stringify({ ...draft, updatedAt: new Date().toISOString() }));
+};
+
+export const getDraft = (): RoutineDraft | null => {
+  try {
+    const data = localStorage.getItem(DRAFT_KEY);
+    return data ? JSON.parse(data) : null;
+  } catch {
+    return null;
+  }
+};
+
+export const clearDraft = (): void => {
+  localStorage.removeItem(DRAFT_KEY);
 };

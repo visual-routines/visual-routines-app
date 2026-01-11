@@ -42,6 +42,7 @@
     "addAtLeastOne": "Add at least one activity",
     "routineSaved": "Routine saved!",
     "added": "Added {{name}}",
+    "draftRestored": "Draft restored",
     "pdfTipTitle": "Tip: Print your routine!",
     "pdfTipDescription": "Tap the printer icon to create a beautiful PDF for your child."
   },

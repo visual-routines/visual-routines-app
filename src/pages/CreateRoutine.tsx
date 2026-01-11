@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
@@ -21,7 +21,7 @@ import { ActivityCard } from "@/components/ActivityCard";
 import { SortableActivity } from "@/components/SortableActivity";
 import { ACTIVITY_TEMPLATES, ActivityCategory } from "@/data/activities";
 import { Activity, Routine } from "@/types/routine";
-import { saveRoutine, getRoutines } from "@/lib/storage";
+import { saveRoutine, getRoutines, saveDraft, getDraft, clearDraft } from "@/lib/storage";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { Printer } from "lucide-react";
@@ -38,6 +38,33 @@ const CreateRoutine = () => {
   const [activities, setActivities] = useState<Activity[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<ActivityCategory>("morning");
   const [recurring, setRecurring] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  // Load draft on mount
+  useEffect(() => {
+    const draft = getDraft();
+    if (draft) {
+      setRoutineName(draft.name);
+      setActivities(draft.activities);
+      setRecurring(draft.recurring);
+      if (draft.name || draft.activities.length > 0) {
+        toast.info(t("create.draftRestored"));
+      }
+    }
+    setIsInitialized(true);
+  }, [t]);
+
+  // Auto-save draft when state changes
+  const saveDraftDebounced = useCallback(() => {
+    if (!isInitialized) return;
+    saveDraft({ name: routineName, activities, recurring, updatedAt: new Date().toISOString() });
+  }, [routineName, activities, recurring, isInitialized]);
+
+  useEffect(() => {
+    if (!isInitialized) return;
+    const timer = setTimeout(saveDraftDebounced, 500);
+    return () => clearTimeout(timer);
+  }, [saveDraftDebounced, isInitialized]);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -108,6 +135,7 @@ const CreateRoutine = () => {
     };
 
     saveRoutine(routine);
+    clearDraft();
     toast.success(t("create.routineSaved"));
 
     if (isFirstRoutine && !hasSeenTip) {
