@@ -1,7 +1,7 @@
 import { Activity } from "@/types/routine";
 import { ACTIVITY_ICONS, CATEGORY_COLORS } from "@/data/activities";
 import { cn } from "@/lib/utils";
-import { GripVertical, Trash2, Check, Minus, Plus } from "lucide-react";
+import { Trash2, Check, Minus, Plus } from "lucide-react";
 
 interface RoutineActivityItemProps {
   activity: Activity;
@@ -46,9 +46,6 @@ export function RoutineActivityItem({
         activity.completed && "opacity-60"
       )}
     >
-      {showControls && !isViewMode && (
-        <GripVertical className="w-5 h-5 text-muted-foreground cursor-grab active:cursor-grabbing" />
-      )}
       
       {isViewMode && (
         <button
