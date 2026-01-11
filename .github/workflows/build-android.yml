@@ -43,14 +43,20 @@ jobs:
       - name: Inject app version into Gradle
         run: |
           # Read version from src/lib/version.ts (single source of truth)
-          VERSION_NAME=$(grep 'VERSION_NAME' src/lib/version.ts | head -1 | sed 's/.*"\(.*\)".*/\1/')
-          VERSION_CODE=$(grep 'VERSION_CODE' src/lib/version.ts | head -1 | sed 's/[^0-9]*\([0-9]*\).*/\1/')
-
+          VERSION_NAME=$(grep 'export const VERSION_NAME' src/lib/version.ts | sed 's/.*= *"\([^"]*\)".*/\1/')
+          VERSION_CODE=$(grep 'export const VERSION_CODE' src/lib/version.ts | sed 's/.*= *\([0-9]*\).*/\1/')
+          
+          echo "Extracted VERSION_NAME: $VERSION_NAME"
+          echo "Extracted VERSION_CODE: $VERSION_CODE"
           echo "Building version: $VERSION_NAME (code: $VERSION_CODE)"
-
+          
           # Update android/app/build.gradle with the version values
           sed -i "s/versionCode [0-9]*/versionCode $VERSION_CODE/" android/app/build.gradle
           sed -i "s/versionName \"[^\"]*\"/versionName \"$VERSION_NAME\"/" android/app/build.gradle
+          
+          # Verify the injection worked
+          echo "Verifying build.gradle:"
+          grep -E "versionCode|versionName" android/app/build.gradle
 
       - name: Work around Maven Central 403
         run: |
