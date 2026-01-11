@@ -139,7 +139,7 @@ const Templates = () => {
                   >
                     <span
                       className={cn(
-                        "absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform",
+                        "absolute left-0 top-1 w-5 h-5 rounded-full bg-white shadow transition-transform",
                         recurringState[template.id] ? "translate-x-4" : "translate-x-0.5"
                       )}
                     />
