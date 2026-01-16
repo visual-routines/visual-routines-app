@@ -19,12 +19,15 @@ import {
 import { MobileLayout } from "@/components/MobileLayout";
 import { ActivityCard } from "@/components/ActivityCard";
 import { SortableActivity } from "@/components/SortableActivity";
+import { AddCustomActivityDialog } from "@/components/AddCustomActivityDialog";
 import { ACTIVITY_TEMPLATES, ActivityCategory } from "@/data/activities";
 import { Activity, Routine } from "@/types/routine";
+import { CustomActivity } from "@/types/customActivity";
+import { getCustomActivities } from "@/lib/customActivities";
 import { saveRoutine, getRoutines, getRoutineById, saveDraft, getDraft, clearDraft } from "@/lib/storage";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
-import { Printer } from "lucide-react";
+import { Printer, Plus } from "lucide-react";
 
 const FIRST_ROUTINE_TIP_KEY = "hasSeenPdfTip";
 
@@ -48,8 +51,15 @@ const CreateRoutine = () => {
   const [recurring, setRecurring] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
   const [existingRoutine, setExistingRoutine] = useState<Routine | null>(null);
+  const [customActivityDialogOpen, setCustomActivityDialogOpen] = useState(false);
+  const [customActivities, setCustomActivities] = useState<CustomActivity[]>([]);
 
   const isEditMode = Boolean(editId);
+
+  // Load custom activities
+  useEffect(() => {
+    setCustomActivities(getCustomActivities());
+  }, []);
 
   // Load existing routine for edit mode, template data, OR draft for create mode
   useEffect(() => {
@@ -134,6 +144,25 @@ const CreateRoutine = () => {
     setActivities(activities.map((a) => 
       a.id === id ? { ...a, duration: newDuration } : a
     ));
+  };
+
+  const addCustomActivity = (customActivity: CustomActivity) => {
+    const newActivity: Activity = {
+      id: `${customActivity.id}-${Date.now()}`,
+      templateId: customActivity.id,
+      name: customActivity.name,
+      icon: customActivity.icon,
+      category: customActivity.category,
+      duration: customActivity.defaultDuration,
+      order: activities.length,
+    };
+    setActivities([...activities, newActivity]);
+    setCustomActivities(getCustomActivities()); // Refresh custom activities list
+    toast.success(t("create.added", { name: customActivity.name }));
+  };
+
+  const handleCustomActivityCreated = (customActivity: CustomActivity) => {
+    addCustomActivity(customActivity);
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -300,10 +329,18 @@ const CreateRoutine = () => {
 
         {/* Activity picker */}
         <div>
-          <label className="block text-sm font-semibold text-foreground mb-2">
-            {t("create.addActivities")}
-          </label>
-          
+          <div className="flex items-center justify-between mb-2">
+            <label className="text-sm font-semibold text-foreground">
+              {t("create.addActivities")}
+            </label>
+            <button
+              onClick={() => setCustomActivityDialogOpen(true)}
+              className="flex items-center gap-1 text-xs font-medium text-primary hover:text-primary/80 transition-colors"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              {t("customActivity.addCustom")}
+            </button>
+          </div>
           {/* Category tabs */}
           <div className="flex gap-2 overflow-x-auto pb-2 mb-3 -mx-4 px-4">
             {CATEGORIES.map((cat) => (
@@ -336,6 +373,23 @@ const CreateRoutine = () => {
                 size="sm"
               />
             ))}
+
+            {/* Custom activities in current category */}
+            {customActivities
+              .filter((ca) => ca.category === selectedCategory)
+              .map((customActivity) => (
+                <ActivityCard
+                  key={customActivity.id}
+                  id={customActivity.id}
+                  name={customActivity.name}
+                  icon={customActivity.icon}
+                  category={customActivity.category}
+                  duration={customActivity.defaultDuration}
+                  onClick={() => addCustomActivity(customActivity)}
+                  size="sm"
+                  isCustom
+                />
+              ))}
           </div>
         </div>
 
@@ -349,6 +403,12 @@ const CreateRoutine = () => {
           </button>
         </div>
       </div>
+
+      <AddCustomActivityDialog
+        open={customActivityDialogOpen}
+        onOpenChange={setCustomActivityDialogOpen}
+        onActivityCreated={handleCustomActivityCreated}
+      />
     </MobileLayout>
   );
 };

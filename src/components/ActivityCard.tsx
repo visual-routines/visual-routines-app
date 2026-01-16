@@ -1,5 +1,7 @@
 import { ACTIVITY_ICONS, CATEGORY_COLORS, ActivityCategory } from "@/data/activities";
+import { ACTIVITY_PNG_ICONS } from "@/data/activityIcons";
 import { cn } from "@/lib/utils";
+import { Sparkles } from "lucide-react";
 
 interface ActivityCardProps {
   id?: string;
@@ -11,6 +13,7 @@ interface ActivityCardProps {
   selected?: boolean;
   showDuration?: boolean;
   size?: "sm" | "md" | "lg";
+  isCustom?: boolean;
 }
 
 export function ActivityCard({
@@ -22,8 +25,10 @@ export function ActivityCard({
   selected,
   showDuration = true,
   size = "md",
+  isCustom,
 }: ActivityCardProps) {
   const IconComponent = ACTIVITY_ICONS[icon];
+  const pngIcon = ACTIVITY_PNG_ICONS[icon];
   
   const sizeClasses = {
     sm: "p-2 gap-1",
@@ -47,21 +52,28 @@ export function ActivityCard({
     <button
       onClick={onClick}
       className={cn(
-        "flex flex-col items-center justify-center rounded-xl bg-card shadow-card transition-all duration-200 active:scale-95",
+        "relative flex flex-col items-center justify-center rounded-xl bg-card shadow-card transition-all duration-200 active:scale-95",
         sizeClasses[size],
         selected && "ring-2 ring-primary ring-offset-2 ring-offset-background",
         onClick && "cursor-pointer hover:shadow-playful"
       )}
     >
+      {isCustom && (
+        <span className="absolute top-1 right-1">
+          <Sparkles className="w-3 h-3 text-amber-500" />
+        </span>
+      )}
       <div
         className={cn(
           "flex items-center justify-center rounded-lg p-2",
           CATEGORY_COLORS[category]
         )}
       >
-        {IconComponent && (
+        {pngIcon ? (
+          <img src={pngIcon} alt={name} className={cn(iconSizes[size], "object-contain")} />
+        ) : IconComponent ? (
           <IconComponent className={cn(iconSizes[size], "text-primary-foreground")} />
-        )}
+        ) : null}
       </div>
       <span className={cn("font-semibold text-foreground mt-1 text-center leading-tight", textSizes[size])}>
         {name}

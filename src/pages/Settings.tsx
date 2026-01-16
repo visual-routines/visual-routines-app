@@ -1,7 +1,12 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { MobileLayout } from "@/components/MobileLayout";
 import { useSettings } from "@/hooks/useSettings";
 import { getRoutines } from "@/lib/storage";
+import { getCustomActivities, deleteCustomActivity } from "@/lib/customActivities";
+import { CustomActivity } from "@/types/customActivity";
+import { ACTIVITY_PNG_ICONS } from "@/data/activityIcons";
+import { AddCustomActivityDialog } from "@/components/AddCustomActivityDialog";
 import { APP_VERSION } from "@/lib/version";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
@@ -39,6 +44,8 @@ import {
   RefreshCw,
   User,
   Info,
+  Sparkles,
+  Pencil,
 } from "lucide-react";
 import { GenderPreference } from "@/lib/settings";
 
@@ -47,6 +54,9 @@ const STORAGE_KEY = "kids-routines";
 export default function Settings() {
   const { t, i18n } = useTranslation();
   const { settings, updateSettings } = useSettings();
+  const [customActivities, setCustomActivities] = useState<CustomActivity[]>(() => getCustomActivities());
+  const [editingActivity, setEditingActivity] = useState<CustomActivity | null>(null);
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
 
   const handleClearAllRoutines = () => {
     localStorage.removeItem(STORAGE_KEY);
@@ -92,6 +102,22 @@ export default function Settings() {
       reader.readAsText(file);
     };
     input.click();
+  };
+
+  const handleDeleteCustomActivity = (id: string) => {
+    deleteCustomActivity(id);
+    setCustomActivities(getCustomActivities());
+    toast.success(t("customActivity.deleted"));
+  };
+
+  const handleEditCustomActivity = (activity: CustomActivity) => {
+    setEditingActivity(activity);
+    setEditDialogOpen(true);
+  };
+
+  const handleActivityUpdated = () => {
+    setCustomActivities(getCustomActivities());
+    setEditingActivity(null);
   };
 
   const themeOptions = [
@@ -266,6 +292,89 @@ export default function Settings() {
           </div>
         </section>
 
+        {/* Custom Activities Section */}
+        <section className="space-y-4">
+          <h2 className="text-lg font-bold text-foreground flex items-center gap-2">
+            <Sparkles className="w-5 h-5 text-amber-500" />
+            {t("customActivity.manageTitle")}
+          </h2>
+
+          <div className="bg-card rounded-2xl p-4 shadow-sm">
+            {customActivities.length === 0 ? (
+              <div className="text-center py-4">
+                <p className="text-muted-foreground text-sm">
+                  {t("customActivity.noCustomActivities")}
+                </p>
+                <p className="text-muted-foreground text-xs mt-1">
+                  {t("customActivity.createCustomActivities")}
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-2">
+                {customActivities.map((activity) => {
+                  const iconPath = ACTIVITY_PNG_ICONS[activity.icon];
+                  return (
+                    <div
+                      key={activity.id}
+                      className="flex items-center gap-3 p-3 bg-muted/50 rounded-xl"
+                    >
+                      <div className="w-10 h-10 rounded-lg bg-card flex items-center justify-center shrink-0">
+                        {iconPath && (
+                          <img src={iconPath} alt={activity.name} className="w-7 h-7 object-contain" />
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium text-foreground truncate">{activity.name}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {t(`categories.${activity.category}`)} • {activity.defaultDuration} {t("settings.min")}
+                        </p>
+                      </div>
+                      <div className="flex gap-1">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="w-8 h-8"
+                          onClick={() => handleEditCustomActivity(activity)}
+                        >
+                          <Pencil className="w-4 h-4" />
+                        </Button>
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="w-8 h-8 text-destructive hover:text-destructive"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>{t("customActivity.deleteConfirmTitle")}</AlertDialogTitle>
+                              <AlertDialogDescription>
+                                {t("customActivity.deleteConfirmDescription")}
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel>{t("settings.cancel")}</AlertDialogCancel>
+                              <AlertDialogAction
+                                onClick={() => handleDeleteCustomActivity(activity.id)}
+                                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                              >
+                                {t("settings.clearAll")}
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </section>
+
         {/* Data Management Section */}
         <section className="space-y-4">
           <h2 className="text-lg font-bold text-foreground flex items-center gap-2">
@@ -339,6 +448,13 @@ export default function Settings() {
           </div>
         </section>
       </div>
+
+      <AddCustomActivityDialog
+        open={editDialogOpen}
+        onOpenChange={setEditDialogOpen}
+        onActivityCreated={handleActivityUpdated}
+        editActivity={editingActivity}
+      />
     </MobileLayout>
   );
 }
