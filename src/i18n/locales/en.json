@@ -125,6 +125,27 @@
     "boy": "Boy",
     "girl": "Girl"
   },
+  "customActivity": {
+    "addTitle": "Add Custom Activity",
+    "editTitle": "Edit Custom Activity",
+    "addCustom": "Custom",
+    "name": "Activity Name",
+    "namePlaceholder": "e.g., Feed the cat",
+    "category": "Category",
+    "duration": "Duration",
+    "chooseIcon": "Choose Icon",
+    "tapToChangeIcon": "Tap to change icon",
+    "add": "Add Activity",
+    "save": "Save",
+    "manageTitle": "Custom Activities",
+    "manageDescription": "Your saved custom activities",
+    "noCustomActivities": "No custom activities yet",
+    "createCustomActivities": "Create custom activities in the routine builder",
+    "deleteConfirmTitle": "Delete custom activity?",
+    "deleteConfirmDescription": "This will remove the activity from your library. Existing routines using it will not be affected.",
+    "deleted": "Custom activity deleted",
+    "other": "Other"
+  },
   "categories": {
     "morning": "Morning",
     "hygiene": "Hygiene",
