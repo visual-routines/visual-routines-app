@@ -4,10 +4,8 @@ import { useTranslation } from "react-i18next";
 import { MobileLayout } from "@/components/MobileLayout";
 import { ROUTINE_TEMPLATES } from "@/data/templates";
 import { ACTIVITY_ICONS, CATEGORY_COLORS } from "@/data/activities";
-import { Routine, Activity } from "@/types/routine";
-import { saveRoutine } from "@/lib/storage";
+import { Activity } from "@/types/routine";
 import { Sun, Moon, Clock, RefreshCw } from "lucide-react";
-import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
 const Templates = () => {
@@ -31,20 +29,16 @@ const Templates = () => {
       id: `${a.templateId}-${Date.now()}-${index}`,
     }));
 
-    const routine: Routine = {
-      id: `routine-${Date.now()}`,
-      name: templateName,
-      type: template.type,
-      activities,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      recurring: isRecurring,
-      lastResetDate: isRecurring ? new Date().toISOString().split("T")[0] : undefined,
-    };
-
-    saveRoutine(routine);
-    toast.success(t("templates.created", { name: templateName }));
-    navigate("/");
+    // Navigate to create page with template data for editing before saving
+    navigate("/create", {
+      state: {
+        fromTemplate: true,
+        name: templateName,
+        type: template.type,
+        activities,
+        recurring: isRecurring,
+      },
+    });
   };
 
   return (
