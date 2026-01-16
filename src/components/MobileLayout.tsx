@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Home, Plus, Layout, MoreVertical, Settings, Sun } from "lucide-react";
+import { Home, Plus, Layout, MoreVertical, Settings, Sun, ChevronLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AboutSheet } from "./AboutSheet";
 import {
@@ -38,9 +38,9 @@ export function MobileLayout({ children, title, showBack, rightAction }: MobileL
           {showBack ? (
             <button
               onClick={() => navigate(-1)}
-              className="p-2 -ml-2 text-foreground hover:bg-muted rounded-lg"
+              className="p-2 -ml-2 text-foreground hover:bg-muted rounded-xl active:scale-95 transition-all"
             >
-              ←
+              <ChevronLeft className="w-7 h-7" />
             </button>
           ) : (
             <div className="flex items-center gap-2">
