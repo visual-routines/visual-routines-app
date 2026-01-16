@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   DndContext,
@@ -32,7 +32,14 @@ const CATEGORIES: ActivityCategory[] = ["morning", "hygiene", "meals", "play", "
 
 const CreateRoutine = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { id: editId } = useParams<{ id: string }>();
+  const templateData = location.state as {
+    fromTemplate?: boolean;
+    name?: string;
+    activities?: Activity[];
+    recurring?: boolean;
+  } | null;
   const { t } = useTranslation();
   const [routineName, setRoutineName] = useState("");
   const routineType = "custom" as const;
@@ -44,7 +51,7 @@ const CreateRoutine = () => {
 
   const isEditMode = Boolean(editId);
 
-  // Load existing routine for edit mode OR draft for create mode
+  // Load existing routine for edit mode, template data, OR draft for create mode
   useEffect(() => {
     if (editId) {
       // Edit mode: load existing routine
@@ -59,6 +66,13 @@ const CreateRoutine = () => {
         navigate("/");
         return;
       }
+    } else if (templateData?.fromTemplate) {
+      // Template mode: load template data for editing
+      setRoutineName(templateData.name || "");
+      setActivities(templateData.activities || []);
+      setRecurring(templateData.recurring || false);
+      // Clear the navigation state to prevent re-loading on refresh
+      window.history.replaceState({}, document.title);
     } else {
       // Create mode: load draft
       const draft = getDraft();
@@ -72,7 +86,7 @@ const CreateRoutine = () => {
       }
     }
     setIsInitialized(true);
-  }, [editId, navigate, t]);
+  }, [editId, navigate, t, templateData]);
 
   // Auto-save draft when state changes (only in create mode)
   const saveDraftDebounced = useCallback(() => {
