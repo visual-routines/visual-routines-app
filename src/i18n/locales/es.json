@@ -118,6 +118,27 @@
     "boy": "Niño",
     "girl": "Niña"
   },
+  "customActivity": {
+    "addTitle": "Agregar Actividad Personalizada",
+    "editTitle": "Editar Actividad Personalizada",
+    "addCustom": "Personalizada",
+    "name": "Nombre de Actividad",
+    "namePlaceholder": "ej., Alimentar al gato",
+    "category": "Categoría",
+    "duration": "Duración",
+    "chooseIcon": "Elegir Icono",
+    "tapToChangeIcon": "Toca para cambiar icono",
+    "add": "Agregar Actividad",
+    "save": "Guardar",
+    "manageTitle": "Actividades Personalizadas",
+    "manageDescription": "Tus actividades personalizadas guardadas",
+    "noCustomActivities": "Aún no hay actividades personalizadas",
+    "createCustomActivities": "Crea actividades personalizadas en el constructor de rutinas",
+    "deleteConfirmTitle": "¿Eliminar actividad personalizada?",
+    "deleteConfirmDescription": "Esto eliminará la actividad de tu biblioteca. Las rutinas existentes que la usen no se verán afectadas.",
+    "deleted": "Actividad personalizada eliminada",
+    "other": "Otro"
+  },
   "categories": {
     "morning": "Mañana",
     "hygiene": "Higiene",

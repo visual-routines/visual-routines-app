@@ -118,6 +118,27 @@
     "boy": "Gutt",
     "girl": "Jente"
   },
+  "customActivity": {
+    "addTitle": "Legg til Egendefinert Aktivitet",
+    "editTitle": "Rediger Egendefinert Aktivitet",
+    "addCustom": "Egendefinert",
+    "name": "Aktivitetsnavn",
+    "namePlaceholder": "f.eks. Mate katten",
+    "category": "Kategori",
+    "duration": "Varighet",
+    "chooseIcon": "Velg Ikon",
+    "tapToChangeIcon": "Trykk for å endre ikon",
+    "add": "Legg til Aktivitet",
+    "save": "Lagre",
+    "manageTitle": "Egendefinerte Aktiviteter",
+    "manageDescription": "Dine lagrede egendefinerte aktiviteter",
+    "noCustomActivities": "Ingen egendefinerte aktiviteter ennå",
+    "createCustomActivities": "Opprett egendefinerte aktiviteter i rutinebyggeren",
+    "deleteConfirmTitle": "Slette egendefinert aktivitet?",
+    "deleteConfirmDescription": "Dette vil fjerne aktiviteten fra biblioteket ditt. Eksisterende rutiner som bruker den vil ikke bli påvirket.",
+    "deleted": "Egendefinert aktivitet slettet",
+    "other": "Annet"
+  },
   "categories": {
     "morning": "Morgen",
     "hygiene": "Hygiene",
