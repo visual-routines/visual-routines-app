@@ -15,8 +15,30 @@
     "naming": {
       "person_activities": "{character}-{id}.png",
       "object_icons": "{id}.png"
-    }
-  },
+    },
+    
+"packaging": {
+  "zip": {
+    "enabled": true,
+    "archive_name": "visual-routines-icons.zip",
+    "folder_structure": {
+      "root": "activities",
+      "group_by": "category", 
+      "category_folder_name": "{label}", 
+      "activity_subfolders": true,
+      "id_folder_name": "{id}",
+      "person_activities_files": "{character}-{id}.png",
+      "person_activities_files_examples": [
+      "activities/Pets/walk-dog/boy-walk-dog.png",
+        "activities/Pets/pet-bowl/pet-bowl.png",
+        "activities/Clothing/put-shirt-on/girl-put-shirt-on.png"
+      ],
+      "object_icons_files": "{id}.png",
+      "object_icons_files_examples": [
+        "activities/Organization/find-pencil/boy-find-pencil.png"]
+      }
+  }
+},
 
   "style": {
     "outline": { "color": "#3A2E2A", "thickness_px": 4, "cap": "round", "join": "round" },
@@ -434,4 +456,4 @@
       "avoid_small_text": true
     }
   }
-}
+}}
