@@ -1,10 +1,10 @@
 
 {
   "meta": {
-    "version": "2.1.2",
+    "version": "2.2.0",
     "last_updated": "2026-01-17",
     "author": "Visual Routines App",
-    "notes": "Flat category list with canonical boy/girl characters. Includes achievements and extended activities/objects. Added 'custom' activity and 'custom-icon' object under break_transition_cards."
+    "notes": "Flat category list with canonical boy/girl characters. Safety-reviewed: opaque coverage and shoulders-only for bathing; fully clothed depictions for dressing; conservative, child-safe language."
   },
 
   "export": {
@@ -69,7 +69,7 @@
         { "id": "wash-face", "description": "child splashing face with water" },
         { "id": "comb-hair", "description": "child combing hair" },
         { "id": "eat-breakfast", "description": "child eating breakfast from a bowl" },
-        { "id": "get-dressed", "description": "child selecting a shirt from clothing, fully dressed with no changing depicted" },
+        { "id": "get-dressed", "description": "child selecting a shirt while fully dressed; no changing depicted" },
         { "id": "pack-backpack", "description": "child packing backpack for the day" }
       ],
       "objects": []
@@ -87,7 +87,7 @@
         { "id": "read-book", "description": "child reading an open book" },
         { "id": "exam", "description": "child taking an exam at a desk" },
         { "id": "exam-done", "description": "child finishing an exam, with a small check/star" },
-        { "id": "lunch-at-school", "description": "child eating lunch at school table" },
+        { "id": "lunch-at-school", "description": "child eating lunch at a school table" },
         { "id": "return-home", "description": "child walking home with backpack" }
       ],
       "objects": [
@@ -101,9 +101,9 @@
       "type": "person",
       "activities": [
         { "id": "eat-dinner", "description": "child eating dinner from a plate" },
-        { "id": "bath-time", "description": "child in bath with bubbles, shoulders-up" },
+        { "id": "bath-time", "description": "child in bath with opaque bubble coverage; only head and shoulders visible" },
         { "id": "brush-teeth-night", "description": "child brushing teeth before bed" },
-        { "id": "put-on-pajamas", "description": "child putting on pajama top" },
+        { "id": "put-on-pajamas", "description": "child choosing pajama top while fully dressed; no changing depicted" },
         { "id": "bedtime", "description": "child lying in bed, eyes closed, blanket up" }
       ],
       "objects": []
@@ -135,8 +135,8 @@
       "activities": [
         { "id": "feeling-happy", "description": "child smiling, relaxed posture" },
         { "id": "feeling-sad", "description": "child with small frown, teardrop accent" },
-        { "id": "feeling-angry", "description": "child with gently furrowed brows" },
-        { "id": "feeling-anxious", "description": "child with hand on chest, breathing cue" },
+        { "id": "feeling-angry", "description": "child with gently furrowed brows; calm, non-intense" },
+        { "id": "feeling-anxious", "description": "child with hand on chest, slow-breath cue" },
         { "id": "calm-down", "description": "child taking deep breaths, hands on chest" }
       ],
       "objects": [
@@ -150,13 +150,10 @@
       "type": "person",
       "activities": [
         { "id": "break-time", "description": "child relaxing with a small timer icon" },
-        { "id": "screen-time", "description": "child holding a tablet" },
+        { "id": "screen-time", "description": "child holding a tablet (neutral content)" },
         { "id": "ask-for-help", "description": "child raising hand for help" },
         { "id": "line-up", "description": "child standing ready, slight side profile" },
-        {
-          "id": "custom",
-          "description": "generic customizable placeholder activity; neutral pose beside a simple badge/shape"
-        }
+        { "id": "custom", "description": "generic placeholder activity; neutral pose beside a simple badge/shape" }
       ],
       "objects": [
         { "id": "timer", "description": "sand timer" },
@@ -168,7 +165,7 @@
         { "id": "midday", "description": "time of day: midday (high sun)" },
         { "id": "afternoon", "description": "time of day: afternoon (tilted sun)" },
         { "id": "night", "description": "time of day: night (moon and star)" },
-        { "id": "custom-icon", "description": "generic customizable placeholder icon (no character)" }
+        { "id": "custom-icon", "description": "generic placeholder icon (no character)" }
       ]
     },
 
@@ -187,10 +184,10 @@
         { "id": "put-toothpaste-on-toothbrush", "description": "child putting toothpaste on toothbrush" },
         { "id": "rinse-mouth-with-water", "description": "child rinsing mouth with water" },
         { "id": "rinse-toothbrush", "description": "child rinsing toothbrush under water" },
-        { "id": "brushing-hair", "description": "child brushing/combing hair" },        
-        { "id": "shower", "description": "child standing behind a fully opaque shower curtain; only head and shoulders visible above curtain" },
-        { "id": "shower-and-wash-hair", "description": "child washing hair with shampoo; only head and shoulders shown, steam and bubbles for modesty" },
-        { "id": "shower-without-washing-hair", "description": "child behind opaque shower curtain with head visible and light water spray indicated above" },
+        { "id": "brushing-hair", "description": "child brushing or combing hair" },
+        { "id": "shower", "description": "child behind an opaque shower curtain; only head/shoulders visible above curtain" },
+        { "id": "shower-and-wash-hair", "description": "child washing hair with shampoo; only head/shoulders shown with bubbles/steam" },
+        { "id": "shower-without-washing-hair", "description": "child behind opaque shower curtain; head visible with light water spray above" },
         { "id": "put-towel-on-hook", "description": "child hanging a towel on a wall hook while fully dressed" }
       ],
       "objects": [
@@ -267,9 +264,9 @@
       "label": "Clothing",
       "type": "person",
       "activities": [
-        { "id": "put-shirt-on", "description": "child putting on a shirt" },
-        { "id": "take-shirt-off", "description": "child taking off a shirt" },
-        { "id": "put-pants-on", "description": "child putting on pants" },
+        { "id": "put-shirt-on", "description": "child putting an outer shirt on over existing clothing; undergarments not visible" },
+        { "id": "take-shirt-off", "description": "child removing an outer shirt while a T-shirt remains visible" },
+        { "id": "put-pants-on", "description": "child stepping into pants over shorts/leggings; undergarments not visible" },
         { "id": "tying-shoelaces", "description": "child tying shoelaces" }
       ],
       "icons": [
@@ -365,61 +362,62 @@
       ]
     },
 
-{
-  "id": "exercise_sport",
-  "label": "Exercise & Sport",
-  "type": "person",
-  "activities": [
-    { "id": "stretching", "description": "child stretching arms overhead or to the side" },
-    { "id": "jumping", "description": "child jumping in place or forward" },
-    { "id": "running", "description": "child running in place or forward" },
-    { "id": "jumping-jacks", "description": "child doing jumping jacks" },
-    { "id": "yoga-pose", "description": "child doing a simple yoga pose (tree pose)" },
-    { "id": "kick-ball", "description": "child kicking a soccer ball" },
-    { "id": "throw-ball", "description": "child throwing a ball" },
-    { "id": "catch-ball", "description": "child catching a ball" },
-    { "id": "ride-bike", "description": "child riding a bicycle (simple profile)" },
-    { "id": "jump-rope", "description": "child jump roping" },
-    { "id": "balance-walk", "description": "child walking on a balance line" }
-  ],
-  "objects": [
-    { "id": "soccer-ball", "description": "soccer ball" },
-    { "id": "basketball", "description": "basketball" },
-    { "id": "tennis-ball", "description": "tennis ball" },
-    { "id": "jump-rope", "description": "jump rope" },
-    { "id": "bike-helmet", "description": "bicycle helmet" }
-  ]
-},
-{
-  "id": "pets",
-  "label": "Pets",
-  "type": "person",
-  "activities": [
-    { "id": "feed-pet", "description": "child pouring food into pet bowl" },
-    { "id": "refill-water-bowl", "description": "child refilling pet's water bowl" },
-    { "id": "walk-dog", "description": "child walking a dog on a leash" },
-    { "id": "brush-pet", "description": "child brushing a pet (simple cat or dog)" },
-    { "id": "play-fetch", "description": "child throwing a ball for a dog" },
-    { "id": "clean-pet-area", "description": "child cleaning a pet’s area or bed" },
-    { "id": "pet-cuddles", "description": "child sitting and petting a small animal" }
-  ],
-  "objects": [
-    { "id": "pet-food-bag", "description": "bag of pet food" },
-    { "id": "pet-bowl", "description": "round pet bowl" },
-    { "id": "pet-water-bowl", "description": "water bowl for pet" },
-    { "id": "leash", "description": "dog leash" },
-    { "id": "pet-bed", "description": "simple pet bed" },
-    { "id": "pet-brush", "description": "small grooming brush" }
-  ]
-},
+    {
+      "id": "exercise_sport",
+      "label": "Exercise & Sport",
+      "type": "person",
+      "activities": [
+        { "id": "stretching", "description": "child stretching arms overhead or to the side" },
+        { "id": "jumping-jacks", "description": "child doing jumping jacks" },
+        { "id": "running", "description": "child running in place or forward" },
+        { "id": "yoga-pose", "description": "child doing a simple yoga pose (tree pose)" },
+        { "id": "kick-ball", "description": "child kicking a soccer ball" },
+        { "id": "throw-ball", "description": "child throwing a ball" },
+        { "id": "catch-ball", "description": "child catching a ball" },
+        { "id": "ride-bike", "description": "child riding a bicycle in profile; helmet visible" },
+        { "id": "jump-rope", "description": "child jump roping" },
+        { "id": "balance-walk", "description": "child walking along a balance line" }
+      ],
+      "objects": [
+        { "id": "soccer-ball", "description": "soccer ball" },
+        { "id": "basketball", "description": "basketball" },
+        { "id": "tennis-ball", "description": "tennis ball" },
+        { "id": "jump-rope", "description": "jump rope" },
+        { "id": "bike-helmet", "description": "bicycle helmet" }
+      ]
+    },
+
+    {
+      "id": "pets",
+      "label": "Pets",
+      "type": "person",
+      "activities": [
+        { "id": "feed-pet", "description": "child pouring food into a pet bowl" },
+        { "id": "refill-water-bowl", "description": "child refilling the pet's water bowl" },
+        { "id": "walk-dog", "description": "child walking a dog on a leash" },
+        { "id": "brush-pet", "description": "child brushing a small pet (cat or dog)" },
+        { "id": "play-fetch", "description": "child throwing a ball for a dog" },
+        { "id": "clean-pet-area", "description": "child cleaning a pet’s area or bed" },
+        { "id": "pet-cuddles", "description": "child sitting and gently petting a small animal" }
+      ],
+      "objects": [
+        { "id": "pet-food-bag", "description": "bag of pet food" },
+        { "id": "pet-bowl", "description": "round pet bowl" },
+        { "id": "pet-water-bowl", "description": "water bowl for pet" },
+        { "id": "leash", "description": "dog leash" },
+        { "id": "pet-bed", "description": "simple pet bed" },
+        { "id": "pet-brush", "description": "small grooming brush" }
+      ]
+    },
+
     {
       "id": "achievements",
       "label": "Achievements",
       "type": "person",
       "activities": [
-        { "id": "proud-mom-and-dad", "description": "two parents behind the child, proud and smiling" },
-        { "id": "proud-mom", "description": "mom behind the child, proud and smiling" },
-        { "id": "proud-dad", "description": "dad behind the child, proud and smiling" }
+        { "id": "proud-mom-and-dad", "description": "two fully clothed, simplified adults standing behind the child, smiling proudly" },
+        { "id": "proud-mom", "description": "fully clothed, simplified adult mother behind the child, smiling proudly" },
+        { "id": "proud-dad", "description": "fully clothed, simplified adult father behind the child, smiling proudly" }
       ],
       "objects": []
     }
