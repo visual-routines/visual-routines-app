@@ -118,6 +118,27 @@
     "boy": "Garçon",
     "girl": "Fille"
   },
+  "customActivity": {
+    "addTitle": "Ajouter une Activité Personnalisée",
+    "editTitle": "Modifier l'Activité Personnalisée",
+    "addCustom": "Personnalisée",
+    "name": "Nom de l'Activité",
+    "namePlaceholder": "ex., Nourrir le chat",
+    "category": "Catégorie",
+    "duration": "Durée",
+    "chooseIcon": "Choisir une Icône",
+    "tapToChangeIcon": "Appuie pour changer l'icône",
+    "add": "Ajouter l'Activité",
+    "save": "Enregistrer",
+    "manageTitle": "Activités Personnalisées",
+    "manageDescription": "Tes activités personnalisées enregistrées",
+    "noCustomActivities": "Pas encore d'activités personnalisées",
+    "createCustomActivities": "Crée des activités personnalisées dans le constructeur de routines",
+    "deleteConfirmTitle": "Supprimer l'activité personnalisée ?",
+    "deleteConfirmDescription": "Cela supprimera l'activité de ta bibliothèque. Les routines existantes qui l'utilisent ne seront pas affectées.",
+    "deleted": "Activité personnalisée supprimée",
+    "other": "Autre"
+  },
   "categories": {
     "morning": "Matin",
     "hygiene": "Hygiène",
