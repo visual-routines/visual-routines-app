@@ -1,10 +1,10 @@
 
 {
   "meta": {
-    "version": "2.1.1",
+    "version": "2.1.2",
     "last_updated": "2026-01-17",
     "author": "Visual Routines App",
-    "notes": "Flat category list with canonical boy/girl characters. Includes achievements and extended activities/objects. Added 'custom' activity under break_transition_cards."
+    "notes": "Flat category list with canonical boy/girl characters. Includes achievements and extended activities/objects. Added 'custom' activity and 'custom-icon' object under break_transition_cards."
   },
 
   "export": {
@@ -167,7 +167,8 @@
         { "id": "morning", "description": "time of day: morning (sunrise glyph)" },
         { "id": "midday", "description": "time of day: midday (high sun)" },
         { "id": "afternoon", "description": "time of day: afternoon (tilted sun)" },
-        { "id": "night", "description": "time of day: night (moon and star)" }
+        { "id": "night", "description": "time of day: night (moon and star)" },
+        { "id": "custom-icon", "description": "generic customizable placeholder icon (no character)" }
       ]
     },
 
