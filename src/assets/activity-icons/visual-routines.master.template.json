@@ -1,10 +1,10 @@
 
 {
   "meta": {
-    "version": "2.1.0",
+    "version": "2.1.1",
     "last_updated": "2026-01-17",
     "author": "Visual Routines App",
-    "notes": "Flat category list with canonical boy/girl characters. Includes achievements and extended activities/objects."
+    "notes": "Flat category list with canonical boy/girl characters. Includes achievements and extended activities/objects. Added 'custom' activity under break_transition_cards."
   },
 
   "export": {
@@ -152,7 +152,11 @@
         { "id": "break-time", "description": "child relaxing with a small timer icon" },
         { "id": "screen-time", "description": "child holding a tablet" },
         { "id": "ask-for-help", "description": "child raising hand for help" },
-        { "id": "line-up", "description": "child standing ready, slight side profile" }
+        { "id": "line-up", "description": "child standing ready, slight side profile" },
+        {
+          "id": "custom",
+          "description": "generic customizable placeholder activity; neutral pose beside a simple badge/shape"
+        }
       ],
       "objects": [
         { "id": "timer", "description": "sand timer" },
@@ -182,7 +186,7 @@
         { "id": "put-toothpaste-on-toothbrush", "description": "child putting toothpaste on toothbrush" },
         { "id": "rinse-mouth-with-water", "description": "child rinsing mouth with water" },
         { "id": "rinse-toothbrush", "description": "child rinsing toothbrush under water" },
-        { "id": "brushing-hair", "description": "child brushing/combining hair" },
+        { "id": "brushing-hair", "description": "child brushing/combing hair" },
         { "id": "shower", "description": "child taking a shower (simple shoulders-up, modest)" },
         { "id": "shower-and-wash-hair", "description": "child showering and washing hair" },
         { "id": "shower-without-washing-hair", "description": "child showering without washing hair" },
