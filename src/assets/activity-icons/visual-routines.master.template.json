@@ -1,0 +1,387 @@
+
+{
+  "meta": {
+    "version": "2.1.0",
+    "last_updated": "2026-01-17",
+    "author": "Visual Routines App",
+    "notes": "Flat category list with canonical boy/girl characters. Includes achievements and extended activities/objects."
+  },
+
+  "export": {
+    "shape": "square",
+    "size_px": [1024, 1024],
+    "background": { "type": "solid", "color": "#FFF8EC" },
+    "file_format": "png",
+    "naming": {
+      "person_activities": "{character}-{id}.png",
+      "object_icons": "{id}.png"
+    }
+  },
+
+  "style": {
+    "outline": { "color": "#3A2E2A", "thickness_px": 4, "cap": "round", "join": "round" },
+    "palette": {
+      "skin_tone": "#F4C7A1",
+      "hair_dark_brown": "#5A3E2B",
+      "shirt_boy": "#4EA4C7",
+      "shirt_girl": "#D27CB7",
+      "accent_blue": "#58B7D8",
+      "accent_green": "#7AC67C",
+      "accent_yellow": "#F2C94C",
+      "accent_red": "#EB5757",
+      "object_gray": "#C8C8C8",
+      "object_dark": "#5C5C5C"
+    },
+    "character_proportions": {
+      "head_to_body_ratio": "large-head-small-body",
+      "eye_style": "simple-dots",
+      "has_mouth": true,
+      "has_nose": true
+    },
+    "shadows_highlights": { "enabled": true, "subtle_inner_shadow": true }
+  },
+
+  "characters": {
+    "boy": {
+      "id": "boy-canonical",
+      "hair_style": "short-round",
+      "hair_color": "hair_dark_brown",
+      "shirt_color": "shirt_boy",
+      "description": "Friendly boy with short brown hair, soft outlines, simple T-shirt."
+    },
+    "girl": {
+      "id": "girl-canonical",
+      "hair_style": "shoulder-length-with-bangs",
+      "hair_color": "hair_dark_brown",
+      "shirt_color": "shirt_girl",
+      "description": "Friendly girl with medium-length brown hair, soft outlines, simple T-shirt."
+    }
+  },
+
+  "categories": [
+    {
+      "id": "morning_routine",
+      "label": "Morning Routine",
+      "type": "person",
+      "activities": [
+        { "id": "wake-up", "description": "child waking in bed, stretching or yawning" },
+        { "id": "brush-teeth", "description": "child brushing teeth at a sink" },
+        { "id": "wash-face", "description": "child splashing face with water" },
+        { "id": "comb-hair", "description": "child combing hair" },
+        { "id": "eat-breakfast", "description": "child eating breakfast from a bowl" },
+        { "id": "get-dressed", "description": "child putting on a shirt" },
+        { "id": "pack-backpack", "description": "child packing backpack for the day" }
+      ],
+      "objects": []
+    },
+
+    {
+      "id": "school_routine",
+      "label": "School Routine",
+      "type": "person",
+      "activities": [
+        { "id": "go-to-school", "description": "child walking with backpack" },
+        { "id": "in-class", "description": "child seated at desk, attentive" },
+        { "id": "do-homework", "description": "child writing in a notebook" },
+        { "id": "homework-done", "description": "child holding up finished homework" },
+        { "id": "read-book", "description": "child reading an open book" },
+        { "id": "exam", "description": "child taking an exam at a desk" },
+        { "id": "exam-done", "description": "child finishing an exam, with a small check/star" },
+        { "id": "lunch-at-school", "description": "child eating lunch at school table" },
+        { "id": "return-home", "description": "child walking home with backpack" }
+      ],
+      "objects": [
+        { "id": "school-desk", "description": "simple school desk" }
+      ]
+    },
+
+    {
+      "id": "evening_routine",
+      "label": "Evening Routine",
+      "type": "person",
+      "activities": [
+        { "id": "eat-dinner", "description": "child eating dinner from a plate" },
+        { "id": "bath-time", "description": "child in bath with bubbles, shoulders-up" },
+        { "id": "brush-teeth-night", "description": "child brushing teeth before bed" },
+        { "id": "put-on-pajamas", "description": "child putting on pajama top" },
+        { "id": "bedtime", "description": "child lying in bed, eyes closed, blanket up" }
+      ],
+      "objects": []
+    },
+
+    {
+      "id": "chores",
+      "label": "Chores",
+      "type": "person",
+      "activities": [
+        { "id": "clean-room", "description": "child putting toys into a box" },
+        { "id": "set-table", "description": "child placing a plate on the table" },
+        { "id": "feed-pet", "description": "child pouring food into pet bowl" },
+        { "id": "take-out-trash", "description": "child carrying a small trash bag" },
+        { "id": "fold-clothes", "description": "child folding clothes" },
+        { "id": "make-bed", "description": "child making the bed" },
+        { "id": "take-dishes-to-sink", "description": "child taking dishes to the sink after eating" }
+      ],
+      "objects": [
+        { "id": "toy-box", "description": "toy bin/box" },
+        { "id": "broom", "description": "small broom" }
+      ]
+    },
+
+    {
+      "id": "emotion_cards",
+      "label": "Emotion Cards",
+      "type": "person",
+      "activities": [
+        { "id": "feeling-happy", "description": "child smiling, relaxed posture" },
+        { "id": "feeling-sad", "description": "child with small frown, teardrop accent" },
+        { "id": "feeling-angry", "description": "child with gently furrowed brows" },
+        { "id": "feeling-anxious", "description": "child with hand on chest, breathing cue" },
+        { "id": "calm-down", "description": "child taking deep breaths, hands on chest" }
+      ],
+      "objects": [
+        { "id": "star-reward", "description": "star badge (reward)" }
+      ]
+    },
+
+    {
+      "id": "break_transition_cards",
+      "label": "Break/Transition Cards",
+      "type": "person",
+      "activities": [
+        { "id": "break-time", "description": "child relaxing with a small timer icon" },
+        { "id": "screen-time", "description": "child holding a tablet" },
+        { "id": "ask-for-help", "description": "child raising hand for help" },
+        { "id": "line-up", "description": "child standing ready, slight side profile" }
+      ],
+      "objects": [
+        { "id": "timer", "description": "sand timer" },
+        { "id": "arrow-right", "description": "right-pointing arrow" },
+        { "id": "check", "description": "check mark badge", "color_hint": "accent_green" },
+        { "id": "x-mark", "description": "x mark badge", "color_hint": "accent_red" },
+        { "id": "alarm-clock", "description": "classic alarm clock" },
+        { "id": "morning", "description": "time of day: morning (sunrise glyph)" },
+        { "id": "midday", "description": "time of day: midday (high sun)" },
+        { "id": "afternoon", "description": "time of day: afternoon (tilted sun)" },
+        { "id": "night", "description": "time of day: night (moon and star)" }
+      ]
+    },
+
+    {
+      "id": "hygiene",
+      "label": "Hygiene",
+      "type": "person",
+      "activities": [
+        { "id": "wash-hands-with-water", "description": "child washing hands under running water" },
+        { "id": "wash-hands-with-soap", "description": "child washing hands with soap lather" },
+        { "id": "wash-face-with-water", "description": "child washing face with water" },
+        { "id": "wash-face-with-soap", "description": "child washing face with soap lather" },
+        { "id": "dry-hands-with-towel", "description": "child drying hands with a towel" },
+        { "id": "dry-face-with-towel", "description": "child drying face with a towel" },
+        { "id": "brush-teeth", "description": "child brushing teeth at sink" },
+        { "id": "put-toothpaste-on-toothbrush", "description": "child putting toothpaste on toothbrush" },
+        { "id": "rinse-mouth-with-water", "description": "child rinsing mouth with water" },
+        { "id": "rinse-toothbrush", "description": "child rinsing toothbrush under water" },
+        { "id": "brushing-hair", "description": "child brushing/combining hair" },
+        { "id": "shower", "description": "child taking a shower (simple shoulders-up, modest)" },
+        { "id": "shower-and-wash-hair", "description": "child showering and washing hair" },
+        { "id": "shower-without-washing-hair", "description": "child showering without washing hair" },
+        { "id": "put-towel-on-hook", "description": "child hanging towel on a hook" }
+      ],
+      "objects": [
+        { "id": "bathtub", "description": "bathtub icon" },
+        { "id": "soap", "description": "bar of soap with bubbles" },
+        { "id": "toothbrush", "description": "toothbrush with paste" },
+        { "id": "toothpaste", "description": "toothpaste tube" },
+        { "id": "towel", "description": "folded towel" },
+        { "id": "comb", "description": "simple comb" },
+        { "id": "toilet-paper", "description": "toilet paper roll" }
+      ]
+    },
+
+    {
+      "id": "meals",
+      "label": "Meals",
+      "type": "person",
+      "activities": [
+        { "id": "eat-cookie", "description": "child eating a cookie" },
+        { "id": "eat-fruit", "description": "child eating a fruit" },
+        { "id": "eat-sandwich", "description": "child eating a sandwich" },
+        { "id": "drink-water", "description": "child drinking water from a cup" }
+      ],
+      "objects": [
+        { "id": "bowl-spoon", "description": "bowl with spoon" },
+        { "id": "plate", "description": "plate with simple food shapes" },
+        { "id": "cup", "description": "cup with straw" },
+        { "id": "lunchbox", "description": "closed lunchbox" },
+        { "id": "fruit-apple", "description": "apple" },
+        { "id": "water-bottle", "description": "lidded water bottle" }
+      ]
+    },
+
+    {
+      "id": "play",
+      "label": "Play",
+      "type": "person",
+      "activities": [
+        { "id": "play-toys", "description": "child playing with toys while seated" },
+        { "id": "build-blocks", "description": "child stacking blocks" },
+        { "id": "draw", "description": "child drawing with crayon" },
+        { "id": "play-outside", "description": "child running or jumping outdoors" }
+      ],
+      "objects": [
+        { "id": "toy-ball", "description": "simple ball" },
+        { "id": "toy-car", "description": "toy car" },
+        { "id": "blocks", "description": "stacking blocks" },
+        { "id": "crayons", "description": "bundle of crayons" },
+        { "id": "video-game", "description": "game controller" }
+      ]
+    },
+
+    {
+      "id": "learning",
+      "label": "Learning",
+      "type": "person",
+      "activities": [
+        { "id": "reading", "description": "child reading a book" },
+        { "id": "doing-homework", "description": "child writing in a notebook" },
+        { "id": "homework-done", "description": "child holding finished homework" }
+      ],
+      "objects": [
+        { "id": "book", "description": "closed book" },
+        { "id": "notebook", "description": "spiral notebook" },
+        { "id": "pencil", "description": "yellow pencil" },
+        { "id": "ruler", "description": "short ruler" },
+        { "id": "scissors", "description": "kid-safe scissors" },
+        { "id": "glue", "description": "glue stick" }
+      ]
+    },
+
+    {
+      "id": "clothing",
+      "label": "Clothing",
+      "type": "person",
+      "activities": [
+        { "id": "put-shirt-on", "description": "child putting on a shirt" },
+        { "id": "take-shirt-off", "description": "child taking off a shirt" },
+        { "id": "put-pants-on", "description": "child putting on pants" },
+        { "id": "tying-shoelaces", "description": "child tying shoelaces" }
+      ],
+      "icons": [
+        { "id": "shirt", "description": "T-shirt" },
+        { "id": "pants", "description": "pants" },
+        { "id": "socks", "description": "pair of socks" },
+        { "id": "shoes", "description": "pair of shoes" },
+        { "id": "shoes-2", "description": "pair of shoes (alt style)" },
+        { "id": "crocs", "description": "clog-style shoes" },
+        { "id": "sandals", "description": "sandals" },
+        { "id": "rubber-boots", "description": "rubber boots" },
+        { "id": "jacket", "description": "zip-up jacket" },
+        { "id": "rain-jacket", "description": "rain jacket" },
+        { "id": "hoodie", "description": "hoodie" },
+        { "id": "hoodie-with-zipper", "description": "hoodie with zipper" },
+        { "id": "sweater", "description": "sweater" },
+        { "id": "hat", "description": "beanie" },
+        { "id": "winter-hat", "description": "winter hat" },
+        { "id": "scarf", "description": "scarf" },
+        { "id": "gloves", "description": "pair of gloves" },
+        { "id": "sports-cap", "description": "sports cap" },
+        { "id": "umbrella", "description": "umbrella" }
+      ]
+    },
+
+    {
+      "id": "school",
+      "label": "School",
+      "type": "person",
+      "activities": [
+        { "id": "pack-backpack", "description": "child packing items into backpack" },
+        { "id": "wait-for-bus", "description": "child standing with backpack" },
+        { "id": "arrive-school", "description": "child waving near school icon" },
+        { "id": "school-desk-activity", "description": "child sitting at a school desk working" }
+      ],
+      "objects": [
+        { "id": "backpack", "description": "rounded backpack" },
+        { "id": "folder", "description": "folder" },
+        { "id": "school-bus", "description": "simplified school bus" },
+        { "id": "school-desk", "description": "simple school desk" },
+        { "id": "pencil-case", "description": "zippered pencil case" },
+        { "id": "laptop", "description": "student laptop" },
+        { "id": "phone", "description": "mobile phone" },
+        { "id": "tablet", "description": "tablet device" }
+      ]
+    },
+
+    {
+      "id": "organization",
+      "label": "Organization",
+      "type": "person",
+      "activities": [
+        { "id": "organize-desk", "description": "child organizing items on a desk" },
+        { "id": "put-away-school-stuff-after-homework", "description": "child putting away school materials after homework" },
+
+        { "id": "find-compass", "description": "child searching for a compass" },
+        { "id": "find-eraser", "description": "child searching for an eraser" },
+        { "id": "find-glasses", "description": "child searching for glasses" },
+        { "id": "find-homework-sheet", "description": "child searching for a homework sheet" },
+        { "id": "find-lunch-bag", "description": "child searching for a lunch bag" },
+        { "id": "find-marker", "description": "child searching for a marker" },
+        { "id": "find-notebook", "description": "child searching for a notebook" },
+        { "id": "find-pencil", "description": "child searching for a pencil" },
+        { "id": "find-ruler", "description": "child searching for a ruler" },
+        { "id": "find-school-backpack", "description": "child searching for a school backpack" },
+        { "id": "find-textbook", "description": "child searching for a textbook" },
+        { "id": "find-whiteboard", "description": "child searching for a whiteboard" },
+
+        { "id": "put-compass-in-pencil-case", "description": "child putting a compass in a pencil case" },
+        { "id": "put-eraser-in-pencil-case", "description": "child putting an eraser in a pencil case" },
+        { "id": "put-marker-in-pencil-case", "description": "child putting a marker in a pencil case" },
+        { "id": "put-ruler-in-pencil-case", "description": "child putting a ruler in a pencil case" },
+        { "id": "put-pencil-in-case", "description": "child putting a pencil in a case" },
+        { "id": "put-pencil-case-in-backpack", "description": "child putting pencil case in backpack" },
+        { "id": "put-notebook-in-backpack", "description": "child putting a notebook in backpack" },
+
+        { "id": "take-compass-out-of-pencil-case", "description": "child taking a compass out of a pencil case" },
+        { "id": "take-eraser-out-of-pencil-case", "description": "child taking an eraser out of a pencil case" },
+        { "id": "take-marker-out-of-pencil-case", "description": "child taking a marker out of a pencil case" },
+        { "id": "take-ruler-out-of-pencil-case", "description": "child taking a ruler out of a pencil case" },
+        { "id": "take-pencil-out-of-case", "description": "child taking a pencil out of a case" },
+        { "id": "take-notebook-out-of-backpack", "description": "child taking a notebook out of a backpack" }
+      ],
+      "objects": [
+        { "id": "clothes-laundry-basket", "description": "laundry basket for clothes" },
+        { "id": "glasses-in-case", "description": "glasses case with glasses" },
+        { "id": "pencil-case", "description": "zippered pencil case" },
+
+        { "id": "phone-not-allowed", "description": "phone with prohibition sign" },
+        { "id": "tablet-not-allowed", "description": "tablet with prohibition sign" },
+        { "id": "laptop-not-allowed", "description": "laptop with prohibition sign" },
+        { "id": "video-game-not-allowed", "description": "game controller with prohibition sign" }
+      ]
+    },
+
+    {
+      "id": "achievements",
+      "label": "Achievements",
+      "type": "person",
+      "activities": [
+        { "id": "proud-mom-and-dad", "description": "two parents behind the child, proud and smiling" },
+        { "id": "proud-mom", "description": "mom behind the child, proud and smiling" },
+        { "id": "proud-dad", "description": "dad behind the child, proud and smiling" }
+      ],
+      "objects": []
+    }
+  ],
+
+  "generation_rules": {
+    "person_categories_generate_for": ["boy", "girl"],
+    "object_categories_generate_for": [],
+    "pose_consistency": "Use canonical proportions; vary only arms, posture, props.",
+    "alignment_grid": "Center subject; keep within 80% safe area for padding.",
+    "background_policy": "Solid background only; no textures.",
+    "accessibility": {
+      "contrast_minimum": "WCAG AA for icons",
+      "avoid_small_text": true
+    }
+  }
+}
