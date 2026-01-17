@@ -69,7 +69,7 @@
         { "id": "wash-face", "description": "child splashing face with water" },
         { "id": "comb-hair", "description": "child combing hair" },
         { "id": "eat-breakfast", "description": "child eating breakfast from a bowl" },
-        { "id": "get-dressed", "description": "child putting on a shirt" },
+        { "id": "get-dressed", "description": "child selecting a shirt from clothing, fully dressed with no changing depicted" },
         { "id": "pack-backpack", "description": "child packing backpack for the day" }
       ],
       "objects": []
@@ -187,11 +187,11 @@
         { "id": "put-toothpaste-on-toothbrush", "description": "child putting toothpaste on toothbrush" },
         { "id": "rinse-mouth-with-water", "description": "child rinsing mouth with water" },
         { "id": "rinse-toothbrush", "description": "child rinsing toothbrush under water" },
-        { "id": "brushing-hair", "description": "child brushing/combing hair" },
-        { "id": "shower", "description": "child taking a shower (simple shoulders-up, modest)" },
-        { "id": "shower-and-wash-hair", "description": "child showering and washing hair" },
-        { "id": "shower-without-washing-hair", "description": "child showering without washing hair" },
-        { "id": "put-towel-on-hook", "description": "child hanging towel on a hook" }
+        { "id": "brushing-hair", "description": "child brushing/combing hair" },        
+        { "id": "shower", "description": "child standing behind a fully opaque shower curtain; only head and shoulders visible above curtain" },
+        { "id": "shower-and-wash-hair", "description": "child washing hair with shampoo; only head and shoulders shown, steam and bubbles for modesty" },
+        { "id": "shower-without-washing-hair", "description": "child behind opaque shower curtain with head visible and light water spray indicated above" },
+        { "id": "put-towel-on-hook", "description": "child hanging a towel on a wall hook while fully dressed" }
       ],
       "objects": [
         { "id": "bathtub", "description": "bathtub icon" },
@@ -365,6 +365,53 @@
       ]
     },
 
+{
+  "id": "exercise_sport",
+  "label": "Exercise & Sport",
+  "type": "person",
+  "activities": [
+    { "id": "stretching", "description": "child stretching arms overhead or to the side" },
+    { "id": "jumping", "description": "child jumping in place or forward" },
+    { "id": "running", "description": "child running in place or forward" },
+    { "id": "jumping-jacks", "description": "child doing jumping jacks" },
+    { "id": "yoga-pose", "description": "child doing a simple yoga pose (tree pose)" },
+    { "id": "kick-ball", "description": "child kicking a soccer ball" },
+    { "id": "throw-ball", "description": "child throwing a ball" },
+    { "id": "catch-ball", "description": "child catching a ball" },
+    { "id": "ride-bike", "description": "child riding a bicycle (simple profile)" },
+    { "id": "jump-rope", "description": "child jump roping" },
+    { "id": "balance-walk", "description": "child walking on a balance line" }
+  ],
+  "objects": [
+    { "id": "soccer-ball", "description": "soccer ball" },
+    { "id": "basketball", "description": "basketball" },
+    { "id": "tennis-ball", "description": "tennis ball" },
+    { "id": "jump-rope", "description": "jump rope" },
+    { "id": "bike-helmet", "description": "bicycle helmet" }
+  ]
+},
+{
+  "id": "pets",
+  "label": "Pets",
+  "type": "person",
+  "activities": [
+    { "id": "feed-pet", "description": "child pouring food into pet bowl" },
+    { "id": "refill-water-bowl", "description": "child refilling pet's water bowl" },
+    { "id": "walk-dog", "description": "child walking a dog on a leash" },
+    { "id": "brush-pet", "description": "child brushing a pet (simple cat or dog)" },
+    { "id": "play-fetch", "description": "child throwing a ball for a dog" },
+    { "id": "clean-pet-area", "description": "child cleaning a pet’s area or bed" },
+    { "id": "pet-cuddles", "description": "child sitting and petting a small animal" }
+  ],
+  "objects": [
+    { "id": "pet-food-bag", "description": "bag of pet food" },
+    { "id": "pet-bowl", "description": "round pet bowl" },
+    { "id": "pet-water-bowl", "description": "water bowl for pet" },
+    { "id": "leash", "description": "dog leash" },
+    { "id": "pet-bed", "description": "simple pet bed" },
+    { "id": "pet-brush", "description": "small grooming brush" }
+  ]
+},
     {
       "id": "achievements",
       "label": "Achievements",
