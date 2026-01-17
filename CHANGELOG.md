@@ -5,6 +5,17 @@ All notable changes to Visual Routines will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] - 2026-01-17
+
+### Added
+- Custom activities system: create personalized activities with icon picker
+- Custom activities management section in Settings (edit/delete)
+- Custom activities display sparkle badge for visual distinction
+
+### Changed
+- Improved back navigation arrow size on mobile for better touch usability
+- Added custom activity translations for all supported languages (EN, ES, FR, NB, MK)
+
 ## [1.4.0] - 2026-01-11
 
 ### Added
